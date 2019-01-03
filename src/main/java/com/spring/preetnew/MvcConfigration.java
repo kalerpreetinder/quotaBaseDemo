@@ -1,8 +1,6 @@
 package com.spring.preetnew;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -45,35 +43,40 @@ public class MvcConfigration extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public BasicDataSource getDataSource() throws URISyntaxException {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	public DataSource getDataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
 		// String username = "", password = "", dbUrl = "";
-	
-			// dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-			 URI dbUri = new URI(System.getenv("DATABASE_URL"));
+		try {
+			//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+			//URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
+			/*
+			 * String username = dbUri.getUserInfo().split(":")[0]; String password =
+			 * dbUri.getUserInfo().split(":")[1]; String dbUrl = "jdbc:postgresql://" +
+			 * dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+			 */
+			String dbUrl = System.getenv("JDBC_DATABASE_URL");
+			String username = System.getenv("JDBC_DATABASE_USERNAME");
+			String password = System.getenv("JDBC_DATABASE_PASSWORD");
+
+			System.out.println(dbUrl);
+			System.out.println(username);
+			System.out.println(password);
 			
-			  String username = dbUri.getUserInfo().split(":")[0];
-			  String password = dbUri.getUserInfo().split(":")[1]; 
-			  String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-			 
-//			String dbUrl = System.getenv("JDBC_DATABASE_URL");
-//			String username = System.getenv("JDBC_DATABASE_USERNAME");
-//			String password = System.getenv("JDBC_DATABASE_PASSWORD");
+//			dataSource.setUrl(dbUrl);
+//			dataSource.setUsername(username);
+//			dataSource.setPassword(password);
 
-			BasicDataSource basicDataSource = new BasicDataSource();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
-			basicDataSource.setUrl(dbUrl);
-			basicDataSource.setUsername(username);
-			basicDataSource.setPassword(password);
-
-	
-
-		return basicDataSource;
+		return dataSource;
 	}
 
 	@Bean
-	public DbServices getDbServices() throws URISyntaxException {
+	public DbServices getDbServices() {
 		return new DbServiceImpl(getDataSource());
 	}
 
