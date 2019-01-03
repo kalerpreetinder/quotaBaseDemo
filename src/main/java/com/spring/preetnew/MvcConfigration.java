@@ -43,20 +43,24 @@ public class MvcConfigration extends WebMvcConfigurerAdapter {
 	@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		//String username = "", password = "", dbUrl = "";
+		// String username = "", password = "", dbUrl = "";
 		try {
-			URI dbUri = new URI(System.getenv("DATABASE_URL"));
+			//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+			//URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-			String username = dbUri.getUserInfo().split(":")[0];
-			String password = dbUri.getUserInfo().split(":")[1];
-			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-			
-			dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+			/*
+			 * String username = dbUri.getUserInfo().split(":")[0]; String password =
+			 * dbUri.getUserInfo().split(":")[1]; String dbUrl = "jdbc:postgresql://" +
+			 * dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+			 */
+			String dbUrl = System.getenv("JDBC_DATABASE_URL");
+			String username = System.getenv("JDBC_DATABASE_USERNAME");
+			String password = System.getenv("JDBC_DATABASE_PASSWORD");
 
 			dataSource.setUrl(dbUrl);
 			dataSource.setUsername(username);
 			dataSource.setPassword(password);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

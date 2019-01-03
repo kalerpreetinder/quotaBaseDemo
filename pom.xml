@@ -38,10 +38,13 @@
 		</dependency>
 
 		<!-- Mysql -->
+		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+			<version>5.1.9</version> </dependency> -->
+
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.9</version>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc4</version>
 		</dependency>
 		<!-- CGLib for @Configuration -->
 		<dependency>
@@ -202,15 +205,9 @@
 				<version>2.0.6</version>
 			</plugin>
 			<!-- Tomcat 7 Server for Development -->
-			<!-- <plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>${maven-tomcat-plugin}</version>
-				<configuration>
-					<port>9090</port>
-					<path>/</path>
-				</configuration>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+				<version>${maven-tomcat-plugin}</version> <configuration> <port>9090</port> 
+				<path>/</path> </configuration> </plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
