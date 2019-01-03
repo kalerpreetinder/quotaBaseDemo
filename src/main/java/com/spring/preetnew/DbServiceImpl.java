@@ -41,8 +41,9 @@ public class DbServiceImpl implements DbServices {
 	@Override
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO `users`(`device_id`, `token`) VALUES (?,?)";
-		int rs = jdbcTemplate.update(sql, user.getDeviceId(), user.getToken());
+		// INSERT INTO users(device_id, token) VALUES ('hgcyc','gvfgyvfg');
+		String sql = "INSERT INTO users(device_id, token) VALUES ('"+user.getDeviceId()+"','"+user.getToken()+"')";
+		int rs = jdbcTemplate.update(sql);
 		return rs;
 	}
 
