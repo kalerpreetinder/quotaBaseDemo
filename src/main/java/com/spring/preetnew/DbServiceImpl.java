@@ -21,7 +21,7 @@ public class DbServiceImpl implements DbServices {
 	@Override
 	public List<User> getUserList() {
 		// TODO Auto-generated method stub
-		List<User> users = jdbcTemplate.query("select * from user", new UserMapper());
+		List<User> users = jdbcTemplate.query("select * from users", new UserMapper());
 		if (users.size() > 0)
 			return users;
 		else
@@ -31,7 +31,7 @@ public class DbServiceImpl implements DbServices {
 	@Override
 	public User getUser(String id) {
 		// TODO Auto-generated method stub
-		List<User> users = jdbcTemplate.query("select * from user where device_id=?", new Object[] { id },new UserMapper());
+		List<User> users = jdbcTemplate.query("select * from users where device_id=?", new Object[] { id },new UserMapper());
 		if (users.size() > 0)
 			return users.get(0);
 		else
@@ -41,7 +41,7 @@ public class DbServiceImpl implements DbServices {
 	@Override
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO `user`(`device_id`, `token`) VALUES (?,?)";
+		String sql = "INSERT INTO `users`(`device_id`, `token`) VALUES (?,?)";
 		int rs = jdbcTemplate.update(sql, user.getDeviceId(), user.getToken());
 		return rs;
 	}
@@ -49,9 +49,14 @@ public class DbServiceImpl implements DbServices {
 	@Override
 	public int updateUser(User user) {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE `user` SET `token`=? WHERE `device_id`=?";
+		String sql = "UPDATE `users` SET `token`=? WHERE `device_id`=?";
 		int res=jdbcTemplate.update(sql,user.getToken(),user.getDeviceId());
 		return res;
+	}
+	
+	@Override
+	public void createTable() {
+		
 	}
 
 }

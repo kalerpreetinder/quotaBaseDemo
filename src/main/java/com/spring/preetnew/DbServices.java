@@ -12,4 +12,6 @@ public List<User> getUserList();
 
 	int updateUser(User user);
 	
+	public void createTable();
+	
 }

@@ -47,7 +47,8 @@ public class MvcConfigration extends WebMvcConfigurerAdapter {
 		BasicDataSource dataSource = new BasicDataSource();
 		// String username = "", password = "", dbUrl = "";
 		try {
-			//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+			
+			//dataSource.setDriverClassName("com.mysql.jdbc.Driver");  //"org.postgresql.Driver";
 			//URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
 			/*

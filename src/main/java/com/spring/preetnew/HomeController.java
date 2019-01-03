@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
+ * heroku pg:psql --app preettestheroku
  */
 @Controller
 public class HomeController {
