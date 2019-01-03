@@ -2,6 +2,7 @@ package com.spring.preetnew;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -67,6 +69,19 @@ public class HomeController {
 		}
 
 		return responseEntity;
+	}
+	
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
+	public List<User> getUser() {
+		//ModelAndView modelAndView = new ModelAndView("home");
+		List<User> userList = dbServiceImpl.getUserList();
+		if (userList.size() > 0) {
+			System.out.println(userList.size());
+			//modelAndView.addObject("userlist", userList);
+		} else {
+			//modelAndView.addObject("userMessage", "No user info");
+		}
+		return userList;
 	}
 
 }
