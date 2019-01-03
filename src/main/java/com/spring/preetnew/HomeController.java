@@ -56,7 +56,7 @@ public class HomeController {
 			} else {
 				int res = dbServiceImpl.updateUser(user);
 				baseResponse.setSuccess("true");
-				baseResponse.setSuccess("registered");
+				baseResponse.setMessage("registered");
 				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
 			}
 

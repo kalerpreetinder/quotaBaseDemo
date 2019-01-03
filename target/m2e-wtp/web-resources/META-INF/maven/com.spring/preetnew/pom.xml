@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.spring</groupId>
 	<artifactId>preetnew</artifactId>
-	<name>preet_new_MVC</name>
+	<name>quotaBaseDemo</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -13,6 +13,9 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<cglib.version>2.2.2</cglib.version>
+		<maven-dependecy-plugin.version>2.10</maven-dependecy-plugin.version>
+		<webapp-runner-tomcat.version>8.0.30.2</webapp-runner-tomcat.version>
+		<maven-tomcat-plugin>2.2</maven-tomcat-plugin>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -198,6 +201,41 @@
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>2.0.6</version>
 			</plugin>
+			<!-- Tomcat 7 Server for Development -->
+			<!-- <plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>${maven-tomcat-plugin}</version>
+				<configuration>
+					<port>9090</port>
+					<path>/</path>
+				</configuration>
+			</plugin> -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven-dependecy-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.github.jsimone</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>${webapp-runner-tomcat.version}</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
