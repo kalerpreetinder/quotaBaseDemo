@@ -73,14 +73,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	public String getUser() {
+	public ModelAndView getUser() {
 		String dbUrl = System.getenv("JDBC_DATABASE_URL");
 		String username = System.getenv("JDBC_DATABASE_USERNAME");
 		String password = System.getenv("JDBC_DATABASE_PASSWORD");
 		
 		String data = dbUrl + " , " + username + " , " + password;
-		
-		return data+"";
+		ModelAndView modelAndView = new ModelAndView("home");
+		modelAndView.addObject("serverTime", data);
+		return modelAndView;
 	}
 
 }
