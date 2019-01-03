@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -72,16 +73,14 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	public List<User> getUser() {
-		//ModelAndView modelAndView = new ModelAndView("home");
-		List<User> userList = dbServiceImpl.getUserList();
-		if (userList.size() > 0) {
-			System.out.println(userList.size());
-			//modelAndView.addObject("userlist", userList);
-		} else {
-			//modelAndView.addObject("userMessage", "No user info");
-		}
-		return userList;
+	public String getUser() {
+		String dbUrl = System.getenv("JDBC_DATABASE_URL");
+		String username = System.getenv("JDBC_DATABASE_USERNAME");
+		String password = System.getenv("JDBC_DATABASE_PASSWORD");
+		
+		String data = dbUrl + " , " + username + " , " + password;
+		
+		return data+"";
 	}
 
 }

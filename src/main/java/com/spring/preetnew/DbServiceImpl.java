@@ -3,6 +3,7 @@ package com.spring.preetnew;
 import java.util.List;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ public class DbServiceImpl implements DbServices {
 	JdbcTemplate jdbcTemplate;
 
 	@Autowired
-	public DbServiceImpl(DataSource dataSource) {
+	public DbServiceImpl(BasicDataSource dataSource) {
 		// TODO Auto-generated constructor stub
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
