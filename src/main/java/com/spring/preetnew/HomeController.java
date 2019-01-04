@@ -97,7 +97,7 @@ public class HomeController {
 			String pass = "";
 			List<User> userList = dbServiceImpl.checkEmail(login.getEmail());
 			if (userList.size() > 0) {
-			 pass = userList.get(0).getPassword();
+			 pass = userList.get(0).password;
 
 				if (pass.equals(login.getPassword())) {
 					baseResponse.setObject(userList.get(0));
