@@ -94,10 +94,10 @@ public class HomeController {
 		ResponseEntity<BaseResponse> responseEntity;
 		BaseResponse baseResponse = new BaseResponse();
 		if (login != null) {
-
+			String pass = "";
 			List<User> userList = dbServiceImpl.checkEmail(login.getEmail());
 			if (userList.size() > 0) {
-				String pass = userList.get(0).getPassword();
+			 pass = userList.get(0).getPassword();
 
 				if (pass.equals(login.getPassword())) {
 					baseResponse.setObject(userList.get(0));
@@ -106,13 +106,15 @@ public class HomeController {
 					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
 				} else {
 					baseResponse.setObject(userList.get(0));
-					baseResponse.setSuccess("false");
-					baseResponse.setMessage("password not match");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.RESET_CONTENT);// 204
+					baseResponse.setSuccess("false "+ pass);
+					baseResponse.setMessage("password not match "+login.getPassword());
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 204
 				}
 			} else {
-				baseResponse.setSuccess("false");
-				baseResponse.setMessage("email does not exist");
+				baseResponse.setSuccess("false "+ pass);
+				baseResponse.setMessage("password not match "+login.getPassword());
+//				baseResponse.setSuccess("false");
+//				baseResponse.setMessage("email does not exist");
 				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
 			}
 		} else {
