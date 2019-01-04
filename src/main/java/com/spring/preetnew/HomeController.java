@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Handles requests for the application home page.
- *  heroku pg:psql --app preettestheroku
- *  heroku pg:psql --app postgresql-parallel-74754
+ * Handles requests for the application home page. heroku pg:psql --app
+ * preettestheroku heroku pg:psql --app postgresql-parallel-74754
  */
 @Controller
 public class HomeController {
@@ -46,21 +45,28 @@ public class HomeController {
 		BaseResponse baseResponse = new BaseResponse();
 		if (user != null) {
 
-			int res = dbServiceImpl.insertUser(user);
-			if (res > 0) {
+			List<User> userList = dbServiceImpl.checkEmail(user.getEmail());
+			if (userList.size() > 0) {
 				baseResponse.setSuccess("true");
-				baseResponse.setMessage("registered");
-				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
+				baseResponse.setMessage("email already exist");
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.ALREADY_REPORTED);//208
 			} else {
-				baseResponse.setSuccess("false");
-				baseResponse.setMessage("not registered");
-				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
-			}
+				int res = dbServiceImpl.insertUser(user);
+				if (res > 0) {
+					baseResponse.setSuccess("true");
+					baseResponse.setMessage("registered");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.CREATED);//201
+				} else {
+					baseResponse.setSuccess("true");
+					baseResponse.setMessage("not registered");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);//200
+				}
+			}    
 
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);//400
 		}
 
 		return responseEntity;
