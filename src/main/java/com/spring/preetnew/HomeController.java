@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
  * Handles requests for the application home page.
- * heroku pg:psql --app preettestheroku
+ *  heroku pg:psql --app preettestheroku
+ *  heroku pg:psql --app postgresql-parallel-74754
  */
 @Controller
 public class HomeController {
@@ -45,22 +45,15 @@ public class HomeController {
 		ResponseEntity<BaseResponse> responseEntity;
 		BaseResponse baseResponse = new BaseResponse();
 		if (user != null) {
-			User users = dbServiceImpl.getUser(user.getDeviceId());
-			if (users == null) {
-				int res = dbServiceImpl.insertUser(user);
-				if (res > 0) {
-					baseResponse.setSuccess("true");
-					baseResponse.setMessage("registered");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
-				} else {
-					baseResponse.setSuccess("false");
-					baseResponse.setMessage("not registered");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
-				}
-			} else {
-				int res = dbServiceImpl.updateUser(user);
+
+			int res = dbServiceImpl.insertUser(user);
+			if (res > 0) {
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("registered");
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
+			} else {
+				baseResponse.setSuccess("false");
+				baseResponse.setMessage("not registered");
 				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);
 			}
 
@@ -72,13 +65,13 @@ public class HomeController {
 
 		return responseEntity;
 	}
-	
+
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
 	public ModelAndView getUser() {
 		String dbUrl = System.getenv("JDBC_DATABASE_URL");
 		String username = System.getenv("JDBC_DATABASE_USERNAME");
 		String password = System.getenv("JDBC_DATABASE_PASSWORD");
-		
+
 		String data = dbUrl + " , " + username + " , " + password;
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("serverTime", data);

@@ -42,17 +42,20 @@ public class DbServiceImpl implements DbServices {
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
 		// INSERT INTO users(device_id, token) VALUES ('hgcyc','gvfgyvfg');
-		String sql = "INSERT INTO users(device_id, token) VALUES ('"+user.getDeviceId()+"','"+user.getToken()+"')";
-		int rs = jdbcTemplate.update(sql);
+//		String sql = "INSERT INTO signup(first_name,last_name,email,password,latitude,longitude,address,device_token,device_type) VALUES ('aaa','bbb','aaa@gmail.com','123456','0','0','mohali 8 phase','qwerty_123456','ios')";
+//		int rs = jdbcTemplate.update(sql);
+		String sql = "INSERT INTO signup(first_name,last_name,email,password,latitude,longitude,address,device_token,device_type) VALUES (?,?,?,?,?,?,?,?,?)";
+		int rs = jdbcTemplate.update(sql, new Object[] {user.getFirst_name(), user.getLast_name(),user.getEmail(), user.getPassword(),user.getLatitude(),user.getLongitude(),user.getAddress(),user.getDevice_token(),user.getDevice_type()});
+		
 		return rs;
 	}
 
 	@Override
 	public int updateUser(User user) {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE `users` SET `token`=? WHERE `device_id`=?";
-		int res=jdbcTemplate.update(sql,user.getToken(),user.getDeviceId());
-		return res;
+//		String sql = "UPDATE `users` SET `token`=? WHERE `device_id`=?";
+//		int res=jdbcTemplate.update(sql,new Object[] {user.getToken(),user.getDeviceId()});
+		return 1;
 	}
 	
 	@Override
