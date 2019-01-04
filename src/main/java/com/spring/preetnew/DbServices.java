@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DbServices {
 
-public List<User> getUserList();
+	public List<User> getUserList();
 	
 	public User getUser(String id);
 	
@@ -13,5 +13,7 @@ public List<User> getUserList();
 	int updateUser(User user);
 	
 	public void createTable();
+	
+	public List<User> checkEmail(String email);
 	
 }
