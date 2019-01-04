@@ -90,16 +90,16 @@ public class HomeController {
 	
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<BaseResponse> loginUser(@RequestBody User user) {
+	public @ResponseBody ResponseEntity<BaseResponse> loginUser(@RequestBody Login login) {
 		ResponseEntity<BaseResponse> responseEntity;
 		BaseResponse baseResponse = new BaseResponse();
-		if (user != null) {
+		if (login != null) {
 
-			List<User> userList = dbServiceImpl.checkEmail(user.getEmail());
+			List<User> userList = dbServiceImpl.checkEmail(login.getEmail());
 			if (userList.size() > 0) {
 				String pass = userList.get(0).getPassword();
 
-				if (pass.equals(user.getPassword())) {
+				if (pass.equals(login.getPassword())) {
 					baseResponse.setObject(userList.get(0));
 					baseResponse.setSuccess("true");
 					baseResponse.setMessage("login sucessfully");
@@ -108,7 +108,7 @@ public class HomeController {
 					baseResponse.setObject(userList.get(0));
 					baseResponse.setSuccess("false");
 					baseResponse.setMessage("password not match");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NO_CONTENT);// 204
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.RESET_CONTENT);// 204
 				}
 			} else {
 				baseResponse.setSuccess("false");
