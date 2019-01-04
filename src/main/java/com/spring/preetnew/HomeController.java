@@ -87,7 +87,8 @@ public class HomeController {
 		modelAndView.addObject("serverTime", data);
 		return modelAndView;
 	}
-
+	
+/*
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<BaseResponse> loginUser(@RequestBody User user) {
 		ResponseEntity<BaseResponse> responseEntity;
@@ -121,5 +122,5 @@ public class HomeController {
                          
 		return responseEntity;
 	}
-
+*/
 }
