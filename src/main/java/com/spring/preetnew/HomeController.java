@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Handles requests for the application home page. heroku pg:psql --app
- * preettestheroku heroku pg:psql --app postgresql-parallel-74754
+ * Handles requests for the application home page.
  */
+
+// heroku pg:psql --app preettestheroku
+// heroku pg:psql --app postgresql-parallel-74754
+
 @Controller
 public class HomeController {
 
@@ -49,25 +52,25 @@ public class HomeController {
 			if (userList.size() > 0) {
 				baseResponse.setSuccess("false");
 				baseResponse.setMessage("email already exist");
-				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.ALREADY_REPORTED);//208
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.ALREADY_REPORTED);// 208
 			} else {
 				int res = dbServiceImpl.insertUser(user);
 				if (res > 0) {
 					baseResponse.setObject(user);
 					baseResponse.setSuccess("true");
 					baseResponse.setMessage("registered");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);//200
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
 				} else {
 					baseResponse.setSuccess("false");
 					baseResponse.setMessage("not registered");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);//400
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
 				}
-			}    
+			}
 
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);//400
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
 		}
 
 		return responseEntity;
@@ -83,6 +86,40 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("serverTime", data);
 		return modelAndView;
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<BaseResponse> loginUser(@RequestBody User user) {
+		ResponseEntity<BaseResponse> responseEntity;
+		BaseResponse baseResponse = new BaseResponse();
+		if (user != null) {
+
+			List<User> userList = dbServiceImpl.checkEmail(user.getEmail());
+			if (userList.size() > 0) {
+				String pass = userList.get(0).getPassword();
+
+				if (pass.equals(user.getPassword())) {
+					baseResponse.setObject(userList.get(0));
+					baseResponse.setSuccess("true");
+					baseResponse.setMessage("login sucessfully");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
+				} else {
+					baseResponse.setSuccess("false");
+					baseResponse.setMessage("password not match");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NO_CONTENT);// 204
+				}
+			} else {
+				baseResponse.setSuccess("false");
+				baseResponse.setMessage("email does not exist");
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
+			}
+		} else {
+			baseResponse.setSuccess("false");
+			baseResponse.setMessage("Something went wrong");
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+		}
+
+		return responseEntity;
 	}
 
 }

@@ -12,8 +12,6 @@ public interface DbServices {
 
 	int updateUser(User user);
 	
-	public void createTable();
-	
 	public List<User> checkEmail(String email);
 	
 }

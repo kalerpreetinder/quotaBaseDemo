@@ -67,11 +67,6 @@ public class DbServiceImpl implements DbServices {
 	}
 
 	@Override
-	public void createTable() {
-
-	}
-
-	@Override
 	public List<User> checkEmail(String email) {
 		String sql = "select * from signup where email='" + email + "' ";
 		 List<User> user = jdbcTemplate.query(sql, new UserMapper());
