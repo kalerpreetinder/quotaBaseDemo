@@ -70,7 +70,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 401
 		}
 
 		return responseEntity;
@@ -117,7 +117,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 401
 		}
                          
 		return responseEntity;
