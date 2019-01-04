@@ -47,7 +47,7 @@ public class HomeController {
 
 			List<User> userList = dbServiceImpl.checkEmail(user.getEmail());
 			if (userList.size() > 0) {
-				baseResponse.setSuccess("true");
+				baseResponse.setSuccess("false");
 				baseResponse.setMessage("email already exist");
 				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.ALREADY_REPORTED);//208
 			} else {
@@ -55,11 +55,11 @@ public class HomeController {
 				if (res > 0) {
 					baseResponse.setSuccess("true");
 					baseResponse.setMessage("registered");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.CREATED);//201
-				} else {
-					baseResponse.setSuccess("true");
-					baseResponse.setMessage("not registered");
 					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);//200
+				} else {
+					baseResponse.setSuccess("false");
+					baseResponse.setMessage("not registered");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);//400
 				}
 			}    
 
