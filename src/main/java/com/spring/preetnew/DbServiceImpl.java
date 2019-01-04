@@ -43,7 +43,6 @@ public class DbServiceImpl implements DbServices {
 	@Override
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
-		// INSERT INTO users(device_id, token) VALUES ('hgcyc','gvfgyvfg');
 		// String sql = "INSERT INTO
 		// signup(first_name,last_name,email,password,latitude,longitude,address,device_token,device_type)
 		// VALUES ('aaa','bbb','aaa@gmail.com','123456','0','0','mohali 8

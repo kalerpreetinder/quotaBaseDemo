@@ -4,6 +4,7 @@ public class BaseResponse {
 
 	String success;
 	String message;
+	Object object;
 	
 	public String getSuccess() {
 		return success;
@@ -16,6 +17,12 @@ public class BaseResponse {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public Object getObject() {
+		return object;
+	}
+	public void setObject(Object object) {
+		this.object = object;
 	}
 	
 	

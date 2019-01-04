@@ -53,6 +53,7 @@ public class HomeController {
 			} else {
 				int res = dbServiceImpl.insertUser(user);
 				if (res > 0) {
+					baseResponse.setObject(user);
 					baseResponse.setSuccess("true");
 					baseResponse.setMessage("registered");
 					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);//200
