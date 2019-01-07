@@ -89,7 +89,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NOT_FOUND);// 404
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
 		}
 
 		return responseEntity;
@@ -124,7 +124,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NOT_FOUND);// 404
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
 		}
 
 		return responseEntity;
@@ -159,7 +159,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NOT_FOUND);// 404
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
 		}
 
 		return responseEntity;

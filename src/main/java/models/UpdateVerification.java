@@ -40,6 +40,8 @@ public class UpdateVerification {
 	@JsonProperty("total_sales")
 	public String total_sales;
 
+	
+	
 	public String getQuota_attainment() {
 		return quota_attainment;
 	}
