@@ -12,10 +12,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import models.Login;
+import models.UpdateVerification;
+import models.User;
+import models.UserInfo;
 
 /**
  * Handles requests for the application home page.
@@ -53,7 +59,7 @@ public class HomeController {
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("login sucessfully");
 
-				UserInfo userInfo = dbServiceImpl.getUserinfo(user.getEmail());
+				UserInfo userInfo = dbServiceImpl.getUserInfo(user.getEmail());
 				if (userInfo != null) {
 					baseResponse.setToken(userInfo.getToken());
 					baseResponse.setUser_id(userInfo.getUser_id());
@@ -64,7 +70,7 @@ public class HomeController {
 			} else {
 				int res = dbServiceImpl.insertUser(user);
 				if (res > 0) {
-					UserInfo userInfo = dbServiceImpl.getUserinfo(user.getEmail());
+					UserInfo userInfo = dbServiceImpl.getUserInfo(user.getEmail());
 					if (userInfo != null) {
 						baseResponse.setToken(userInfo.getToken());
 						baseResponse.setUser_id(userInfo.getUser_id());
@@ -83,7 +89,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NOT_FOUND);// 404
 		}
 
 		return responseEntity;
@@ -118,14 +124,47 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NOT_FOUND);// 404
 		}
 
 		return responseEntity;
 	}
 
-	
-	
+	@RequestMapping(value = "/update_verification", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<BaseResponse> updateVerification(
+			@RequestHeader(value = "Authorization") String authorization, @RequestHeader(value = "id") String id,
+			@RequestBody UpdateVerification upadateVerification) {
+		ResponseEntity<BaseResponse> responseEntity;
+		BaseResponse baseResponse = new BaseResponse();
+		if (upadateVerification != null) {
+
+			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
+			if (headerValid) {
+				int res = dbServiceImpl.updateVerification(upadateVerification, id);
+				if (res > 0) {
+					baseResponse.setSuccess("true");
+					baseResponse.setMessage("update sucessfully");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
+				} else {
+					baseResponse.setSuccess("false");
+					baseResponse.setMessage("not update");
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
+				}
+			} else {
+				baseResponse.setSuccess("false");
+				baseResponse.setMessage("invalid request");
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+			}
+
+		} else {
+			baseResponse.setSuccess("false");
+			baseResponse.setMessage("Something went wrong");
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.NOT_FOUND);// 404
+		}
+
+		return responseEntity;
+	}
+
 //	@RequestMapping(value = Constants.USER_UPDATE_PROFILE_URL, method = RequestMethod.POST, produces = "application/json")
 //	public @ResponseBody ResponseEntity<UserResponse> updateUserProfile(
 //			@RequestHeader(value = "Authorization") String header, @RequestBody UserRequestDto userRequestDto) {

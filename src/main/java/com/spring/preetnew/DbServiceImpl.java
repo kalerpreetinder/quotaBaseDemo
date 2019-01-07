@@ -10,6 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import mappers.InfoMapper;
+import mappers.UserMapper;
+import models.UpdateVerification;
+import models.User;
+import models.UserInfo;
+
 @Repository("DbServices")
 public class DbServiceImpl implements DbServices {
 
@@ -32,7 +38,7 @@ public class DbServiceImpl implements DbServices {
 	}
 
 	@Override
-	public UserInfo getUserinfo(String email) {
+	public UserInfo getUserInfo(String email) {
 		// TODO Auto-generated method stub
 		List<UserInfo> users = jdbcTemplate.query("select id,token from signup where email=?", new Object[] { email },
 				new InfoMapper());
@@ -42,7 +48,6 @@ public class DbServiceImpl implements DbServices {
 			return null;
 	}
 
-	@Override
 	public int insertUser(User user) {
 		// TODO Auto-generated method stub
 		// String sql = "INSERT INTO
@@ -52,7 +57,8 @@ public class DbServiceImpl implements DbServices {
 		// int rs = jdbcTemplate.update(sql);
 		String token = "";
 		token = UUID.randomUUID().toString();
-		String sql = "INSERT INTO signup(first_name,last_name,email,latitude,longitude,address,device_token,device_type,social_id,company_name,token,image,job_title) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO signup(first_name,last_name,email,latitude,longitude,address,device_token,device_type,"
+				+ "social_id,company_name,token,image,job_title) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		int rs = jdbcTemplate.update(sql,
 				new Object[] { user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getLatitude(),
 						user.getLongitude(), user.getAddress(), user.getDevice_token(), user.getDevice_type(),
@@ -62,19 +68,36 @@ public class DbServiceImpl implements DbServices {
 	}
 
 	@Override
-	public int updateUser(User user) {
-		// TODO Auto-generated method stub
-		// String sql = "UPDATE `users` SET `token`=? WHERE `device_id`=?";
-		// int res=jdbcTemplate.update(sql,new Object[]
-		// {user.getToken(),user.getDeviceId()});
-		return 1;
-	}
-
-	@Override
 	public List<User> checkEmail(String email) {
 		String sql = "select * from signup where email='" + email + "' ";
 		List<User> user = jdbcTemplate.query(sql, new UserMapper());
 		return user;
+	}
+
+	public int updateVerification(UpdateVerification updateVeri, String id) {
+
+		String sql = "INSERT INTO update_verification(user_id,verified,quota_attainment,tracked,average_deal_size,average_sales_cycle,"
+				+ "target_market,years_of_experiance,team_manager,team_manager_company_email,your_company_email,total_sales)"
+				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		int rs = jdbcTemplate.update(sql,
+				new Object[] { id, "false", updateVeri.getQuota_attainment(), updateVeri.getTracked(),
+						updateVeri.getAverage_deal_size(), updateVeri.getAverage_sales_cycle(),
+						updateVeri.getTarget_market(), updateVeri.getYears_of_experiance(),
+						updateVeri.getTeam_manager(), updateVeri.getTeam_manager_company_email(),
+						updateVeri.getYour_company_email(), updateVeri.getTotal_sales() });
+
+		return rs;
+	}
+
+	public boolean isHeaderValid(String authorization, String id) {
+
+		String qry = "select * from signup where id='" + id + "' and token='" + authorization + "' ";
+		List<User> user = jdbcTemplate.query(qry, new UserMapper());
+		if (user.size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

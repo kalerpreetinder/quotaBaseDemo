@@ -1,4 +1,4 @@
-package com.spring.preetnew;
+package models;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 

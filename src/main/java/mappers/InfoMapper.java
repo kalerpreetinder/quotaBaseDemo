@@ -1,8 +1,10 @@
-package com.spring.preetnew;
+package mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
+
+import models.UserInfo;
 
 public class InfoMapper implements RowMapper<UserInfo>{
 
