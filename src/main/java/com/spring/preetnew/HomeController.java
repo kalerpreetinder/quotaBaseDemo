@@ -223,7 +223,7 @@ public class HomeController {
 		try {
 			final String to = "kalerpreetinder@gmail.com";
 			final String from = "preetsumit368@gmail.com";
-			String host = "smtp.gmail.com";
+			String host = "smtp.sparkpostmail.com";
 			Properties properties = System.getProperties();
 			// Setup mail server
 			properties.setProperty("mail.smtp.host", host);
@@ -231,12 +231,14 @@ public class HomeController {
 			properties.setProperty("mail.smtp.starttls.required", "true");
 			properties.setProperty("mail.smtp.auth", "true");
 
-			properties.put("mail.smtp.EnableSSL.enable", "true");
+			//properties.put("mail.smtp.EnableSSL.enable", "true");
+			properties.setProperty("mail.smtp.ssl.enable", "false");
+			properties.setProperty("mail.smtp.debug", "true");
 
-			properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			properties.setProperty("mail.smtp.socketFactory.fallback", "false");
-			properties.setProperty("mail.smtp.port", "465");
-			properties.setProperty("mail.smtp.socketFactory.port", "465");
+			//properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			properties.setProperty("mail.smtp.socketFactory.fallback", "true");
+			properties.setProperty("mail.port", "587");
+			properties.setProperty("mail.smtp.socketFactory.port", "587");
 			properties.put("mail.from", from);
 
 			// Get the default Session object.
