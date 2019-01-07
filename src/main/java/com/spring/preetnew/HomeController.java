@@ -197,12 +197,12 @@ public class HomeController {
 
 			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 			if (headerValid) {
+				sendMail();
 				baseResponse.setVerified("true");
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
 				responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.OK);// 200
-				sendMail();
-
+				
 			} else {
 				baseResponse.setSuccess("false");
 				baseResponse.setMessage("invalid request");
