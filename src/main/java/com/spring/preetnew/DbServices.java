@@ -6,7 +6,7 @@ public interface DbServices {
 
 	public List<User> getUserList();
 	
-	public User getUser(String id);
+	public UserInfo getUserinfo(String email);
 	
 	public int insertUser(User user);
 

@@ -56,6 +56,9 @@ public class HomeController {
 			} else {
 				int res = dbServiceImpl.insertUser(user);
 				if (res > 0) {
+					UserInfo userInfo = dbServiceImpl.getUserinfo(user.getEmail());
+					baseResponse.setToken(userInfo.getToken());
+					baseResponse.setUser_id(userInfo.getUser_id());
 					baseResponse.setObject(user);
 					baseResponse.setSuccess("true");
 					baseResponse.setMessage("registered");
@@ -88,7 +91,6 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<BaseResponse> loginUser(@RequestBody Login login) {
 		ResponseEntity<BaseResponse> responseEntity;
@@ -124,4 +126,6 @@ public class HomeController {
 		return responseEntity;
 	}
 
+	
+	
 }

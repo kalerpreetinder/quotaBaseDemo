@@ -17,6 +17,8 @@ public class UserMapper implements RowMapper<User> {
 		user.setAddress(rs.getString("address"));
 		user.setDevice_token(rs.getString("device_token"));
 		user.setDevice_type(rs.getString("device_type"));
+		user.setSocial_id(rs.getString("social_id"));
+		user.setCompany_name(rs.getString("company_name"));
 		
 		return user;
 	}

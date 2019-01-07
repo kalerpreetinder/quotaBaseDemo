@@ -4,6 +4,8 @@ public class BaseResponse {
 
 	String success;
 	String message;
+	String user_id;
+	String token;
 	Object object;
 	
 	public String getSuccess() {
@@ -23,6 +25,18 @@ public class BaseResponse {
 	}
 	public void setObject(Object object) {
 		this.object = object;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	
