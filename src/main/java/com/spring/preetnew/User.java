@@ -36,6 +36,10 @@ public class User {
 	
 	@JsonProperty("company_name")
 	public String company_name;
+	
+	@JsonProperty("image")
+	public String image;
+	
 
 	public String getFirst_name() {
 		return first_name;
@@ -124,5 +128,15 @@ public class User {
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	
 	
 }
