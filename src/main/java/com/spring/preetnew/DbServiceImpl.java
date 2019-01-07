@@ -3,13 +3,12 @@ package com.spring.preetnew;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.UUID;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import interfaces.DbServices;
 import mappers.InfoMapper;
 import mappers.UserMapper;
 import models.UpdateVerification;
@@ -55,8 +54,8 @@ public class DbServiceImpl implements DbServices {
 		// VALUES ('aaa','bbb','aaa@gmail.com','123456','0','0','mohali 8
 		// phase','qwerty_123456','ios')";
 		// int rs = jdbcTemplate.update(sql);
-		String token = "";
-		token = UUID.randomUUID().toString();
+
+		String token = UUID.randomUUID().toString();
 		String sql = "INSERT INTO signup(first_name,last_name,email,latitude,longitude,address,device_token,device_type,"
 				+ "social_id,company_name,token,image,job_title) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		int rs = jdbcTemplate.update(sql,
@@ -98,6 +97,18 @@ public class DbServiceImpl implements DbServices {
 		} else {
 			return false;
 		}
+	}
+
+	public String updateToken(String user_id) {
+		String token = UUID.randomUUID().toString();
+		String sql = "UPDATE signup set token='" + token + "' where id='" + user_id + "' ";
+		int res = jdbcTemplate.update(sql);
+		if (res > 0) {
+			return token;
+		} else {
+			return "";
+		}
+
 	}
 
 }

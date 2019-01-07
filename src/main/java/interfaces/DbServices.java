@@ -1,4 +1,4 @@
-package com.spring.preetnew;
+package interfaces;
 
 import java.util.List;
 
@@ -19,5 +19,7 @@ public interface DbServices {
 	public int updateVerification(UpdateVerification updateVerification, String id);
 	
 	public boolean isHeaderValid(String authorization, String id);
+	
+	public String updateToken(String user_id);
 	
 }

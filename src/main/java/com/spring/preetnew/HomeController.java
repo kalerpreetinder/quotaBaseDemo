@@ -63,12 +63,18 @@ public class HomeController {
 
 				UserInfo userInfo = dbServiceImpl.getUserInfo(user.getEmail());
 				if (userInfo != null) {
-					baseResponse.setToken(userInfo.getToken());
+					String token = dbServiceImpl.updateToken(userInfo.getUser_id());
+					if (token.length() > 0) {
+						baseResponse.setToken(token);
+					} else {
+						baseResponse.setToken(userInfo.getToken());
+					}
+
 					baseResponse.setUser_id(userInfo.getUser_id());
 				}
 				baseResponse.setObject(user);
-
 				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
+
 			} else {
 				int res = dbServiceImpl.insertUser(user);
 				if (res > 0) {
