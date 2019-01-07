@@ -48,11 +48,11 @@ public class DbServiceImpl implements DbServices {
 		// VALUES ('aaa','bbb','aaa@gmail.com','123456','0','0','mohali 8
 		// phase','qwerty_123456','ios')";
 		// int rs = jdbcTemplate.update(sql);
-		String sql = "INSERT INTO signup(first_name,last_name,email,password,latitude,longitude,address,device_token,device_type) VALUES (?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO signup(first_name,last_name,email,password,latitude,longitude,address,device_token,device_type,social_id,company_name) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		int rs = jdbcTemplate.update(sql,
 				new Object[] { user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getPassword(),
 						user.getLatitude(), user.getLongitude(), user.getAddress(), user.getDevice_token(),
-						user.getDevice_type() });
+						user.getDevice_type(), user.getSocial_id(), user.getCompany_name()});
 
 		return rs;
 	}
