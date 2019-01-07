@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import models.BaseResponse;
+import models.CheckVerifiedResponse;
 import models.Login;
 import models.UpdateVerification;
 import models.User;
@@ -165,32 +167,37 @@ public class HomeController {
 		return responseEntity;
 	}
 
-//	@RequestMapping(value = Constants.USER_UPDATE_PROFILE_URL, method = RequestMethod.POST, produces = "application/json")
-//	public @ResponseBody ResponseEntity<UserResponse> updateUserProfile(
-//			@RequestHeader(value = "Authorization") String header, @RequestBody UserRequestDto userRequestDto) {
-//		if (userRequestDto == null) {
-//			return new ResponseEntity<UserResponse>(HttpStatus.BAD_REQUEST);
-//		}
-//		HttpHeaders headers = new HttpHeaders();
-//		boolean tokenValid = userDao.isTokenValid(header, userRequestDto.getUserId());
-//
-//		if (!tokenValid) {
-//			UserResponse responseObject = new UserResponse(Constants.INVALID_TOKEN, header, "false",
-//					Constants.INVALID_TOKEN_CODE);
-//			return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.UNAUTHORIZED);
-//		} else {
-//			UserDto userDto = userDao.getUser(userRequestDto.getUserId());
-//			if (userDto != null) {
-//				userDto = userDao.updateUserProfile(userRequestDto);
-//				UserResponse responseObject = new UserResponse(userDto, Constants.PROFILE_UPDATED_SUCCESSFULLY,
-//						userDto.getHeaderToken(), "true", Constants.SUCCESS_OK_CODE);
-//				return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.CREATED);
-//			} else {
-//				UserResponse responseObject = new UserResponse(userDto, Constants.NO_SUCH_USER_AVAILABLE, header,
-//						"false", Constants.INVALID_EMAIL_CODE);
-//				return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.OK);
-//			}
-//		}
-//	}
+	@RequestMapping(value = "/check_verified", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<CheckVerifiedResponse> checkVerified(
+			@RequestHeader(value = "Authorization") String authorization, @RequestHeader(value = "id") String id,
+			@RequestBody UpdateVerification upadateVerification) {
+
+		ResponseEntity<CheckVerifiedResponse> responseEntity;
+		CheckVerifiedResponse baseResponse = new CheckVerifiedResponse();
+
+		if (upadateVerification != null) {
+
+			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
+			if (headerValid) {
+				baseResponse.setVerified("true");
+				baseResponse.setSuccess("true");
+				baseResponse.setMessage("verified sucessfully");
+				responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.OK);// 200
+
+			} else {
+				baseResponse.setSuccess("false");
+				baseResponse.setMessage("invalid request");
+				responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+			}
+
+		} else {
+			baseResponse.setVerified("false");
+			baseResponse.setSuccess("false");
+			baseResponse.setMessage("not verified");
+			responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
+		}
+
+		return null;
+	}
 
 }

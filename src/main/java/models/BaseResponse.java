@@ -1,4 +1,4 @@
-package com.spring.preetnew;
+package models;
 
 public class BaseResponse {
 
