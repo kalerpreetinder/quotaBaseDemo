@@ -99,7 +99,7 @@ public class HomeController {
 			String pass = "";
 			List<User> userList = dbServiceImpl.checkEmail(login.getEmail());
 			if (userList.size() > 0) {
-			 pass = userList.get(0).getPassword();
+			 pass = "";
 
 				if (pass.equals(login.getPassword())) {
 					baseResponse.setObject(userList.get(0));
@@ -126,6 +126,32 @@ public class HomeController {
 		return responseEntity;
 	}
 
-	
-	
+//	@RequestMapping(value = Constants.USER_UPDATE_PROFILE_URL, method = RequestMethod.POST, produces = "application/json")
+//	public @ResponseBody ResponseEntity<UserResponse> updateUserProfile(
+//			@RequestHeader(value = "Authorization") String header, @RequestBody UserRequestDto userRequestDto) {
+//		if (userRequestDto == null) {
+//			return new ResponseEntity<UserResponse>(HttpStatus.BAD_REQUEST);
+//		}
+//		HttpHeaders headers = new HttpHeaders();
+//		boolean tokenValid = userDao.isTokenValid(header, userRequestDto.getUserId());
+//
+//		if (!tokenValid) {
+//			UserResponse responseObject = new UserResponse(Constants.INVALID_TOKEN, header, "false",
+//					Constants.INVALID_TOKEN_CODE);
+//			return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.UNAUTHORIZED);
+//		} else {
+//			UserDto userDto = userDao.getUser(userRequestDto.getUserId());
+//			if (userDto != null) {
+//				userDto = userDao.updateUserProfile(userRequestDto);
+//				UserResponse responseObject = new UserResponse(userDto, Constants.PROFILE_UPDATED_SUCCESSFULLY,
+//						userDto.getHeaderToken(), "true", Constants.SUCCESS_OK_CODE);
+//				return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.CREATED);
+//			} else {
+//				UserResponse responseObject = new UserResponse(userDto, Constants.NO_SUCH_USER_AVAILABLE, header,
+//						"false", Constants.INVALID_EMAIL_CODE);
+//				return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.OK);
+//			}
+//		}
+//	}
+//	
 }

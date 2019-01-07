@@ -13,8 +13,8 @@ public class User {
 	@JsonProperty("email")
 	public String email;
 
-	@JsonProperty("password")
-	public String password;
+//	@JsonProperty("password")
+//	public String password;
 	
 	@JsonProperty("latitude")
 	public String latitude;
@@ -61,13 +61,13 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 
 	public String getLatitude() {
 		return latitude;
