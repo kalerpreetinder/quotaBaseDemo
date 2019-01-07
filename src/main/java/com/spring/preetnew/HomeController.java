@@ -202,7 +202,7 @@ public class HomeController {
 				baseResponse.setMessage("verified sucessfully");
 				responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.OK);// 200
 				sendMail();
-				
+
 			} else {
 				baseResponse.setSuccess("false");
 				baseResponse.setMessage("invalid request");
@@ -221,7 +221,7 @@ public class HomeController {
 
 	public void sendMail() {
 		try {
-			final String to = "webastral99@gmail.com";
+			final String to = "kalerpreetinder@gmail.com";
 			final String from = "preetsumit368@gmail.com";
 			String host = "smtp.gmail.com";
 			Properties properties = System.getProperties();
@@ -262,14 +262,16 @@ public class HomeController {
 			// Set Subject: header field
 			message.setSubject("WordBoost email verification");
 			message.setContent(message, "text/html; charset=utf-8");
-			String link = "http://112.196.64.115:8080/app_wordsprint/change_password_link.jsp?email=" + to;
+			// String link =
+			// "http://112.196.64.115:8080/app_wordsprint/change_password_link.jsp?email=" +
+			// to;
 			StringBuilder bodyText = new StringBuilder();
 			bodyText.append("<div>").append("  Dear User<br/><br/>")
 					.append("  Your password change request is under process.<br/>")
-					.append("  Please click <a href=\"" + link
+					.append("  Please click <a href=\""
 							+ "\">here</a> or open below link in browser to change password<br/>")
-					.append("  <a href='" + link + "'>Click here to verify</a>").append("  <br/><br/>")
-					.append("  Thanks,<br/>").append("  WordBoost Team").append("</div>");
+					.append("  <a href=''>Click here to verify</a>").append("  <br/><br/>").append("  Thanks,<br/>")
+					.append("  WordBoost Team").append("</div>");
 
 			// message.setText(bodyText.toString());
 			message.setContent(bodyText.toString(), "text/html; charset=utf-8");
