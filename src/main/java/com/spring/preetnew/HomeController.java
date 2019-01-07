@@ -1,9 +1,21 @@
 package com.spring.preetnew;
 
+import java.net.PasswordAuthentication;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,7 +201,8 @@ public class HomeController {
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
 				responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.OK);// 200
-
+				sendMail();
+				
 			} else {
 				baseResponse.setSuccess("false");
 				baseResponse.setMessage("invalid request");
@@ -204,6 +217,81 @@ public class HomeController {
 		}
 
 		return responseEntity;
+	}
+
+	public void sendMail() {
+		try {
+			final String to = "webastral99@gmail.com";
+			final String from = "preetsumit368@gmail.com";
+			String host = "smtp.gmail.com";
+			Properties properties = System.getProperties();
+			// Setup mail server
+			properties.setProperty("mail.smtp.host", host);
+			properties.setProperty("mail.smtp.starttls.enable", "true");
+			properties.setProperty("mail.smtp.starttls.required", "true");
+			properties.setProperty("mail.smtp.auth", "true");
+
+			properties.put("mail.smtp.EnableSSL.enable", "true");
+
+			properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+			properties.setProperty("mail.smtp.port", "465");
+			properties.setProperty("mail.smtp.socketFactory.port", "465");
+			properties.put("mail.from", from);
+
+			// Get the default Session object.
+			Session mailSession = Session.getInstance(properties, new Authenticator() {
+				public javax.mail.PasswordAuthentication getPasswordAuthentication() {
+					String username = from;
+					String password = "preet368@";
+					if ((username != null) && (username.length() > 0) && (password != null)
+							&& (password.length() > 0)) {
+
+						return new javax.mail.PasswordAuthentication(username, password);
+					}
+					return null;
+				}
+			});
+
+			// Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(mailSession);
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			// Set Subject: header field
+			message.setSubject("WordBoost email verification");
+			message.setContent(message, "text/html; charset=utf-8");
+			String link = "http://112.196.64.115:8080/app_wordsprint/change_password_link.jsp?email=" + to;
+			StringBuilder bodyText = new StringBuilder();
+			bodyText.append("<div>").append("  Dear User<br/><br/>")
+					.append("  Your password change request is under process.<br/>")
+					.append("  Please click <a href=\"" + link
+							+ "\">here</a> or open below link in browser to change password<br/>")
+					.append("  <a href='" + link + "'>Click here to verify</a>").append("  <br/><br/>")
+					.append("  Thanks,<br/>").append("  WordBoost Team").append("</div>");
+
+			// message.setText(bodyText.toString());
+			message.setContent(bodyText.toString(), "text/html; charset=utf-8");
+
+			MimeBodyPart mimeBodyPart = new MimeBodyPart();
+			mimeBodyPart.setContent(bodyText, "text/html");
+
+			MimeMultipart multipart = new MimeMultipart();
+			multipart.addBodyPart(mimeBodyPart);
+
+			MimeMessage messagep = new MimeMessage(mailSession);
+			messagep.setFrom(new InternetAddress(from));
+			messagep.setContent(multipart, "text/html; charset=utf-8");
+			messagep.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			messagep.setSubject("WordBoost email verification");
+			messagep.setContent(bodyText.toString(), "text/html; charset=utf-8");
+
+			Transport.send(messagep);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 }
