@@ -52,15 +52,15 @@ public class HomeController {
 			if (userList.size() > 0) {
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("login sucessfully");
-				
+
 				UserInfo userInfo = dbServiceImpl.getUserinfo(user.getEmail());
 				if (userInfo != null) {
 					baseResponse.setToken(userInfo.getToken());
 					baseResponse.setUser_id(userInfo.getUser_id());
 				}
 				baseResponse.setObject(user);
-				
-				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.ALREADY_REPORTED);// 208
+
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
 			} else {
 				int res = dbServiceImpl.insertUser(user);
 				if (res > 0) {
@@ -87,18 +87,6 @@ public class HomeController {
 		}
 
 		return responseEntity;
-	}
-
-	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	public ModelAndView getUser() {
-		String dbUrl = System.getenv("JDBC_DATABASE_URL");
-		String username = System.getenv("JDBC_DATABASE_USERNAME");
-		String password = System.getenv("JDBC_DATABASE_PASSWORD");
-
-		String data = dbUrl + " , " + username + " , " + password;
-		ModelAndView modelAndView = new ModelAndView("home");
-		modelAndView.addObject("serverTime", data);
-		return modelAndView;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -136,41 +124,34 @@ public class HomeController {
 		return responseEntity;
 	}
 
-	// @RequestMapping(value = Constants.USER_UPDATE_PROFILE_URL, method =
-	// RequestMethod.POST, produces = "application/json")
-	// public @ResponseBody ResponseEntity<UserResponse> updateUserProfile(
-	// @RequestHeader(value = "Authorization") String header, @RequestBody
-	// UserRequestDto userRequestDto) {
-	// if (userRequestDto == null) {
-	// return new ResponseEntity<UserResponse>(HttpStatus.BAD_REQUEST);
-	// }
-	// HttpHeaders headers = new HttpHeaders();
-	// boolean tokenValid = userDao.isTokenValid(header,
-	// userRequestDto.getUserId());
-	//
-	// if (!tokenValid) {
-	// UserResponse responseObject = new UserResponse(Constants.INVALID_TOKEN,
-	// header, "false",
-	// Constants.INVALID_TOKEN_CODE);
-	// return new ResponseEntity<UserResponse>(responseObject, headers,
-	// HttpStatus.UNAUTHORIZED);
-	// } else {
-	// UserDto userDto = userDao.getUser(userRequestDto.getUserId());
-	// if (userDto != null) {
-	// userDto = userDao.updateUserProfile(userRequestDto);
-	// UserResponse responseObject = new UserResponse(userDto,
-	// Constants.PROFILE_UPDATED_SUCCESSFULLY,
-	// userDto.getHeaderToken(), "true", Constants.SUCCESS_OK_CODE);
-	// return new ResponseEntity<UserResponse>(responseObject, headers,
-	// HttpStatus.CREATED);
-	// } else {
-	// UserResponse responseObject = new UserResponse(userDto,
-	// Constants.NO_SUCH_USER_AVAILABLE, header,
-	// "false", Constants.INVALID_EMAIL_CODE);
-	// return new ResponseEntity<UserResponse>(responseObject, headers,
-	// HttpStatus.OK);
-	// }
-	// }
-	// }
-	//
+	
+	
+//	@RequestMapping(value = Constants.USER_UPDATE_PROFILE_URL, method = RequestMethod.POST, produces = "application/json")
+//	public @ResponseBody ResponseEntity<UserResponse> updateUserProfile(
+//			@RequestHeader(value = "Authorization") String header, @RequestBody UserRequestDto userRequestDto) {
+//		if (userRequestDto == null) {
+//			return new ResponseEntity<UserResponse>(HttpStatus.BAD_REQUEST);
+//		}
+//		HttpHeaders headers = new HttpHeaders();
+//		boolean tokenValid = userDao.isTokenValid(header, userRequestDto.getUserId());
+//
+//		if (!tokenValid) {
+//			UserResponse responseObject = new UserResponse(Constants.INVALID_TOKEN, header, "false",
+//					Constants.INVALID_TOKEN_CODE);
+//			return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.UNAUTHORIZED);
+//		} else {
+//			UserDto userDto = userDao.getUser(userRequestDto.getUserId());
+//			if (userDto != null) {
+//				userDto = userDao.updateUserProfile(userRequestDto);
+//				UserResponse responseObject = new UserResponse(userDto, Constants.PROFILE_UPDATED_SUCCESSFULLY,
+//						userDto.getHeaderToken(), "true", Constants.SUCCESS_OK_CODE);
+//				return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.CREATED);
+//			} else {
+//				UserResponse responseObject = new UserResponse(userDto, Constants.NO_SUCH_USER_AVAILABLE, header,
+//						"false", Constants.INVALID_EMAIL_CODE);
+//				return new ResponseEntity<UserResponse>(responseObject, headers, HttpStatus.OK);
+//			}
+//		}
+//	}
+
 }

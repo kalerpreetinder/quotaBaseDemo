@@ -40,6 +40,10 @@ public class User {
 	@JsonProperty("image")
 	public String image;
 	
+	@JsonProperty("job_title")
+	public String job_title;
+	
+	
 
 	public String getFirst_name() {
 		return first_name;
@@ -135,6 +139,14 @@ public class User {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getJob_title() {
+		return job_title;
+	}
+
+	public void setJob_title(String job_title) {
+		this.job_title = job_title;
 	}
 	
 	

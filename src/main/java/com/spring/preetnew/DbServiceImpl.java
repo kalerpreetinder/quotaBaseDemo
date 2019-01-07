@@ -52,11 +52,11 @@ public class DbServiceImpl implements DbServices {
 		// int rs = jdbcTemplate.update(sql);
 		String token = "";
 		token = UUID.randomUUID().toString();
-		String sql = "INSERT INTO signup(first_name,last_name,email,latitude,longitude,address,device_token,device_type,social_id,company_name,token,image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO signup(first_name,last_name,email,latitude,longitude,address,device_token,device_type,social_id,company_name,token,image,job_title) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		int rs = jdbcTemplate.update(sql,
 				new Object[] { user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getLatitude(),
 						user.getLongitude(), user.getAddress(), user.getDevice_token(), user.getDevice_type(),
-						user.getSocial_id(), user.getCompany_name(), token, user.getImage() });
+						user.getSocial_id(), user.getCompany_name(), token, user.getImage(), user.getJob_title() });
 
 		return rs;
 	}
