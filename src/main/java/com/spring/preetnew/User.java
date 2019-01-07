@@ -30,6 +30,12 @@ public class User {
 	
 	@JsonProperty("device_type")
 	public String device_type;
+	
+	@JsonProperty("social_id")
+	public String social_id;
+	
+	@JsonProperty("company_name")
+	public String company_name;
 
 	public String getFirst_name() {
 		return first_name;
@@ -101,6 +107,22 @@ public class User {
 
 	public void setDevice_type(String device_type) {
 		this.device_type = device_type;
+	}
+
+	public String getSocial_id() {
+		return social_id;
+	}
+
+	public void setSocial_id(String social_id) {
+		this.social_id = social_id;
+	}
+
+	public String getCompany_name() {
+		return company_name;
+	}
+
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
 	}
 	
 }

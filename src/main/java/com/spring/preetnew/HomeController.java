@@ -70,7 +70,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 401
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
 		}
 
 		return responseEntity;
@@ -108,7 +108,7 @@ public class HomeController {
 					//baseResponse.setObject(userList.get(0));
 					baseResponse.setSuccess("false");
 					baseResponse.setMessage("password not match ");
-					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 204
+					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
 				}
 			} else {
 				baseResponse.setSuccess("false");
@@ -118,7 +118,7 @@ public class HomeController {
 		} else {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("Something went wrong");
-			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 401
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
 		}
                          
 		return responseEntity;
