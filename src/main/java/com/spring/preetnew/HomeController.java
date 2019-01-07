@@ -197,7 +197,7 @@ public class HomeController {
 			responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
 		}
 
-		return null;
+		return responseEntity;
 	}
 
 }
