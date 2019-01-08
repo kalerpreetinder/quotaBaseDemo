@@ -408,7 +408,7 @@ public class HomeController {
 		Random random = new Random();
 		int pass = random.nextInt((max - min) + 1) + min;
 
-		final String from = "webastral99@gmail.com";
+		final String from = "preetsumit368@gmail.com";
 		String host = "smtp.gmail.com";
 		Properties properties = System.getProperties();
 		
@@ -436,7 +436,7 @@ public class HomeController {
 				@Override
 				public javax.mail.PasswordAuthentication getPasswordAuthentication() {
 					String username = from;
-					String password = "@AnApple@19";
+					String password = "preet368@"; //"@AnApple@19";
 					if ((username != null) && (username.length() > 0) && (password != null)
 							&& (password.length() > 0)) {
 
