@@ -200,7 +200,7 @@ public class HomeController {
 
 			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 			if (headerValid) {
-				// sendMail();
+				sendMail();
 				baseResponse.setVerified("true");
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
@@ -260,7 +260,7 @@ public class HomeController {
 
 		ResponseEntity<BaseResponse> responseEntity;
 		BaseResponse baseResponse = new BaseResponse();
-		
+
 		boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 		if (headerValid) {
 			List<UserList> usersList = dbServiceImpl.getUserList();
@@ -282,11 +282,11 @@ public class HomeController {
 			baseResponse.setMessage("invalid request");
 			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
 		}
-		
+
 		return responseEntity;
-		
+
 	}
-	
+
 	public void sendMail() {
 		try {
 			final String to = "kalerpreetinder@gmail.com";
