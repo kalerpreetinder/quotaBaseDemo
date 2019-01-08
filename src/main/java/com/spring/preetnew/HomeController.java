@@ -1,5 +1,6 @@
 package com.spring.preetnew;
 
+import java.io.IOException;
 import java.net.PasswordAuthentication;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Random;
+
+import com.sendgrid.*;
+import org.springframework.stereotype.Component;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -22,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,6 +60,9 @@ public class HomeController {
 
 	@Autowired
 	DbServiceImpl dbServiceImpl;
+	
+	@Autowired
+	JavaMailSender mailSender;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -200,7 +209,9 @@ public class HomeController {
 
 			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 			if (headerValid) {
-				sendMail();
+				//sendMail();
+				generateForgotPassword("kalerpreetinder@gmail.com", mailSender);
+				
 				baseResponse.setVerified("true");
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
@@ -288,7 +299,7 @@ public class HomeController {
 	}
 
 	public void sendMail() {
-		try {
+		/*try {
 			final String to = "kalerpreetinder@gmail.com";
 			final String from = "preetsumit368@gmail.com";
 			String host = "smtp.gmail.com";
@@ -364,7 +375,102 @@ public class HomeController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		}
+		}*/
+		
+		
+		Email from = new Email("preetsumit368@gmail.com");
+        String subject = "Amazing Email";
+        Email to = new Email("kalerpreetinder@gmail.com");
+        Content content = new Content("text/plain", "You have received this email complements of SendGrid and Heroku!");
+        Mail mail = new Mail(from, subject, to, content);
+ 
+        SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+        Request request = new Request();
+        try {
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+            Response response = sg.api(request);
+            
+            System.out.println("Status code sending email:" + response.getStatusCode());
+            System.out.println(response.getBody());
+            System.out.println(response.getHeaders());
+            
+        } catch (IOException ex) {
+            System.out.println("Email was not sent." + ex.getLocalizedMessage());
+        }
+		
 	}
 
+	
+	public void generateForgotPassword(String to, JavaMailSender mailSender) {
+		int max = 99999999, min = 100000;
+		Random random = new Random();
+		int pass = random.nextInt((max - min) + 1) + min;
+
+		final String from = "webastral99@gmail.com";
+		String host = "smtp.gmail.com";
+		Properties properties = System.getProperties();
+		
+		try {
+			// Setup mail server
+			/*
+			 * properties.setProperty("mail.smtp.host", host);
+			 * properties.setProperty("mail.smtp.starttls.enable", "true");
+			 * properties.setProperty("mail.smtp.starttls.required", "true");
+			 * properties.setProperty("mail.smtp.auth", "true");
+			 * 
+			 * properties.put("mail.smtp.EnableSSL.enable", "true");
+			 * 
+			 * properties.setProperty("mail.smtp.socketFactory.class",
+			 * "javax.net.ssl.SSLSocketFactory");
+			 * properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+			 * properties.setProperty("mail.smtp.port", "587");
+			 * properties.setProperty("mail.smtp.socketFactory.port", "465");
+			 * /*properties.put("mail.smtp.socketFactory.port", "465");
+			 * properties.put("mail.smtp.port", "465");
+			 */
+			// properties.put("mail.from", from);
+			// Get the default Session object.
+			Session mailSession = Session.getInstance(properties, new Authenticator() {
+				@Override
+				public javax.mail.PasswordAuthentication getPasswordAuthentication() {
+					String username = from;
+					String password = "@AnApple@19";
+					if ((username != null) && (username.length() > 0) && (password != null)
+							&& (password.length() > 0)) {
+
+						return new javax.mail.PasswordAuthentication(username, password);
+					}
+
+					return null;
+				}
+			});
+
+			// Create a default MimeMessage object.
+			MimeMessage message = new MimeMessage(mailSession);
+
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			// Set Subject: header field
+			message.setSubject("FreshLint Password Reset mail");
+
+			// Now set the actual message
+			message.setText("New password is " + pass);
+
+			// Send message
+			mailSender.send(message);
+
+			// Transport.send(message);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}
+	}
+	
 }
