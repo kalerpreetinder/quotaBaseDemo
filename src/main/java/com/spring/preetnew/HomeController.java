@@ -464,7 +464,7 @@ public class HomeController {
 			// Send message
 			mailSender.send(message);
 
-			// Transport.send(message);
+		    Transport.send(message);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
