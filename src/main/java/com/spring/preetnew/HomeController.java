@@ -185,7 +185,7 @@ public class HomeController {
 		return responseEntity;
 	}
 
-	@RequestMapping(value = "/check_verified", method = RequestMethod.POST)
+	@RequestMapping(value = "/request_verified", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<CheckVerifiedResponse> checkVerified(
 			@RequestHeader(value = "Authorization") String authorization, @RequestHeader(value = "id") String id,
 			@RequestBody UpdateVerification upadateVerification) {
@@ -197,7 +197,7 @@ public class HomeController {
 
 			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 			if (headerValid) {
-				sendMail();
+				//sendMail();
 				baseResponse.setVerified("true");
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
