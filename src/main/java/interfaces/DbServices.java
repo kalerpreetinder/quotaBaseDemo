@@ -6,10 +6,11 @@ import models.CheckVerification;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
+import models.UserList;
 
 public interface DbServices {
 
-	public List<User> getUserList();
+	public List<UserList> getUserList();
 	
 	public UserInfo getUserInfo(String email);
 	

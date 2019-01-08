@@ -11,11 +11,13 @@ import org.springframework.stereotype.Repository;
 import interfaces.DbServices;
 import mappers.CheckVerificationMapper;
 import mappers.InfoMapper;
+import mappers.UserListMapper;
 import mappers.UserMapper;
 import models.CheckVerification;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
+import models.UserList;
 
 @Repository("DbServices")
 public class DbServiceImpl implements DbServices {
@@ -29,9 +31,9 @@ public class DbServiceImpl implements DbServices {
 	}
 
 	@Override
-	public List<User> getUserList() {
+	public List<UserList> getUserList() {
 		// TODO Auto-generated method stub
-		List<User> users = jdbcTemplate.query("select * from users", new UserMapper());
+		List<UserList> users = jdbcTemplate.query("select * from signup", new UserListMapper());
 		if (users.size() > 0)
 			return users;
 		else

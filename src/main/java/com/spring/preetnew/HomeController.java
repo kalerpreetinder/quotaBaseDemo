@@ -2,6 +2,7 @@ package com.spring.preetnew;
 
 import java.net.PasswordAuthentication;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +38,7 @@ import models.Login;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
+import models.UserList;
 
 /**
  * Handles requests for the application home page.
@@ -252,6 +254,39 @@ public class HomeController {
 		return responseEntity;
 	}
 
+	@RequestMapping(value = "/users_list", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<BaseResponse> usersList(
+			@RequestHeader(value = "Authorization") String authorization, @RequestHeader(value = "id") String id) {
+
+		ResponseEntity<BaseResponse> responseEntity;
+		BaseResponse baseResponse = new BaseResponse();
+		
+		boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
+		if (headerValid) {
+			List<UserList> usersList = dbServiceImpl.getUserList();
+			if (usersList.size() > 0) {
+				baseResponse.setMessage("data fetch sucessfully");
+				baseResponse.setSuccess("true");
+				baseResponse.setToken(authorization);
+				baseResponse.setUser_id(id);
+				baseResponse.setObject(usersList);
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
+			} else {
+				baseResponse.setMessage("data not fetch");
+				baseResponse.setSuccess("false");
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
+			}
+
+		} else {
+			baseResponse.setSuccess("false");
+			baseResponse.setMessage("invalid request");
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
+		}
+		
+		return responseEntity;
+		
+	}
+	
 	public void sendMail() {
 		try {
 			final String to = "kalerpreetinder@gmail.com";
