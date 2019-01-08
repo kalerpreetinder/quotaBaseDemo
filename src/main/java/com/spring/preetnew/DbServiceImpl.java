@@ -9,8 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import interfaces.DbServices;
+import mappers.CheckVerificationMapper;
 import mappers.InfoMapper;
 import mappers.UserMapper;
+import models.CheckVerification;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -109,6 +111,17 @@ public class DbServiceImpl implements DbServices {
 			return "";
 		}
 
+	}
+
+	public CheckVerification checkVerification(String user_id) {
+
+		String sql = "select * from update_verification where user_id='" + user_id + "' ";
+		List<CheckVerification> checkVerifications = jdbcTemplate.query(sql, new CheckVerificationMapper());
+		if (checkVerifications.size() > 0) {
+			return checkVerifications.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import models.BaseResponse;
+import models.CheckVerification;
 import models.CheckVerifiedResponse;
 import models.Login;
 import models.UpdateVerification;
@@ -186,7 +187,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/request_verified", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<CheckVerifiedResponse> checkVerified(
+	public @ResponseBody ResponseEntity<CheckVerifiedResponse> requestVerified(
 			@RequestHeader(value = "Authorization") String authorization, @RequestHeader(value = "id") String id,
 			@RequestBody UpdateVerification upadateVerification) {
 
@@ -197,12 +198,12 @@ public class HomeController {
 
 			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 			if (headerValid) {
-				//sendMail();
+				// sendMail();
 				baseResponse.setVerified("true");
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
 				responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.OK);// 200
-				
+
 			} else {
 				baseResponse.setSuccess("false");
 				baseResponse.setMessage("invalid request");
@@ -214,6 +215,36 @@ public class HomeController {
 			baseResponse.setSuccess("false");
 			baseResponse.setMessage("not verified");
 			responseEntity = new ResponseEntity<CheckVerifiedResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
+		}
+
+		return responseEntity;
+	}
+
+	@RequestMapping(value = "/check_verified", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<BaseResponse> checkVerified(
+			@RequestHeader(value = "Authorization") String authorization, @RequestHeader(value = "id") String id) {
+
+		ResponseEntity<BaseResponse> responseEntity;
+		BaseResponse baseResponse = new BaseResponse();
+
+		boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
+		if (headerValid) {
+			CheckVerification checkVerification = dbServiceImpl.checkVerification(id);
+			if (checkVerification != null) {
+				baseResponse.setMessage("data fetch sucessfully");
+				baseResponse.setSuccess("true");
+				baseResponse.setObject(checkVerification);
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
+			} else {
+				baseResponse.setMessage("data not fetch");
+				baseResponse.setSuccess("false");
+				responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.BAD_REQUEST);// 400
+			}
+
+		} else {
+			baseResponse.setSuccess("false");
+			baseResponse.setMessage("invalid request");
+			responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.UNAUTHORIZED);// 401
 		}
 
 		return responseEntity;
@@ -231,11 +262,12 @@ public class HomeController {
 			properties.setProperty("mail.smtp.starttls.required", "true");
 			properties.setProperty("mail.smtp.auth", "true");
 
-			//properties.put("mail.smtp.EnableSSL.enable", "true");
+			// properties.put("mail.smtp.EnableSSL.enable", "true");
 			properties.setProperty("mail.smtp.ssl.enable", "false");
 			properties.setProperty("mail.smtp.debug", "true");
 
-			//properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			// properties.setProperty("mail.smtp.socketFactory.class",
+			// "javax.net.ssl.SSLSocketFactory");
 			properties.setProperty("mail.smtp.socketFactory.fallback", "true");
 			properties.setProperty("mail.port", "587");
 			properties.setProperty("mail.smtp.socketFactory.port", "587");
