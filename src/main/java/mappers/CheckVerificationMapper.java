@@ -20,6 +20,7 @@ public class CheckVerificationMapper implements RowMapper<CheckVerification> {
 		checkVerification.setYear_of_experiance_verified(rs.getString("year_of_experiance_verified"));
 		checkVerification.setTarget_market_verified(rs.getString("target_market_verified"));
 		checkVerification.setTotal_sales_2018_verified(rs.getString("total_sales_2018_verified"));
+		checkVerification.setVerified(rs.getString("verified"));
 
 		return checkVerification;
 	}

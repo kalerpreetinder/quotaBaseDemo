@@ -31,6 +31,9 @@ public class CheckVerification {
 	@JsonProperty("total_sales_2018_verified")
 	public String total_sales_2018_verified;
 	
+	@JsonProperty("verified")
+	public String verified;
+	
 	
 	
 	public String getVerified_by() {
@@ -104,6 +107,15 @@ public class CheckVerification {
 	public void setTotal_sales_2018_verified(String total_sales_2018_verified) {
 		this.total_sales_2018_verified = total_sales_2018_verified;
 	}
+
+	public String getVerified() {
+		return verified;
+	}
+
+	public void setVerified(String verified) {
+		this.verified = verified;
+	}
 	
+
 
 }
