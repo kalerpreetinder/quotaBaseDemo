@@ -25,6 +25,12 @@ public class CheckVerification {
 	@JsonProperty("year_of_experiance_verified")
 	public String year_of_experiance_verified;
 
+	@JsonProperty("target_market_verified")
+	public String target_market_verified;
+	
+	@JsonProperty("total_sales_2018_verified")
+	public String total_sales_2018_verified;
+	
 	
 	
 	public String getVerified_by() {
@@ -81,6 +87,22 @@ public class CheckVerification {
 
 	public void setYear_of_experiance_verified(String year_of_experiance_verified) {
 		this.year_of_experiance_verified = year_of_experiance_verified;
+	}
+
+	public String getTarget_market_verified() {
+		return target_market_verified;
+	}
+
+	public void setTarget_market_verified(String target_market_verified) {
+		this.target_market_verified = target_market_verified;
+	}
+
+	public String getTotal_sales_2018_verified() {
+		return total_sales_2018_verified;
+	}
+
+	public void setTotal_sales_2018_verified(String total_sales_2018_verified) {
+		this.total_sales_2018_verified = total_sales_2018_verified;
 	}
 	
 
