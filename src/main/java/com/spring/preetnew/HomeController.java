@@ -291,7 +291,7 @@ public class HomeController {
 		try {
 			final String to = "kalerpreetinder@gmail.com";
 			final String from = "preetsumit368@gmail.com";
-			String host = "smtp.sparkpostmail.com";
+			String host = "smtp.gmail.com";
 			Properties properties = System.getProperties();
 			// Setup mail server
 			properties.setProperty("mail.smtp.host", host);
