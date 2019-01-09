@@ -48,11 +48,11 @@
 
 </head>
 
-<%
-	String user_id = request.getParameter("user_id");
-%>
 
 <body>
+	<%
+		String user_id = request.getParameter("user_id");
+	%>
 
 	<center>
 		<div class="modal-dialog" style="width: 550px; margin-top: 20px;">
@@ -75,25 +75,25 @@
 
 						<p>
 							<form:input style="width: 60%; padding: 2px;" type="hidden"
-								path="user_id" name="user_id" id="user_id" value='<%=user_id%>'
-								required />
+								path="user_id" name="user_id" id="user_id"
+								value="<%=user_id%>" required="required" />
 
 							<form:input style="width: 60%; padding: 2px;" type="text"
 								path="verified_by" name="verified_by" id="verified_by"
-								placeholder="Verified by" required />
+								placeholder="Verified by" required="required" />
 						</p>
 
 						<p>
 							<form:input style="width: 60%; padding: 2px;" type="text"
 								path="quota_attainment_verified"
 								name="quota_attainment_verified" id="quota_attainment_verified"
-								placeholder="Quota Attainment Verified" required />
+								placeholder="Quota Attainment Verified" required="required" />
 						</p>
 
 						<p>
 							<form:input style="width: 60%; padding: 2px;" type="text"
 								path="tracked" name="tracked" id="tracked" placeholder="Tracked"
-								required />
+								required="required" />
 						</p>
 
 						<p>
@@ -101,7 +101,7 @@
 								name="average_deal_size_verified"
 								id="average_deal_size_verified"
 								path="average_deal_size_verified"
-								placeholder="Average Deal Size Verified" required />
+								placeholder="Average Deal Size Verified" required="required" />
 						</p>
 
 						<p>
@@ -109,28 +109,28 @@
 								name="average_sales_cycle_verified"
 								id="average_sales_cycle_verified"
 								path="average_sales_cycle_verified"
-								placeholder="Average Sales Cycle Verified" required />
+								placeholder="Average Sales Cycle Verified" required="required" />
 						</p>
 						<p>
 							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="year_of_experiance_verified"
 								id="year_of_experiance_verified"
 								path="year_of_experiance_verified"
-								placeholder="Year of Experiance Verified" required />
+								placeholder="Year of Experiance Verified" required="required" />
 						</p>
 
 						<p>
 							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="target_market_verified" id="target_market_verified"
 								path="target_market_verified"
-								placeholder="Target Market Verified" required />
+								placeholder="Target Market Verified" required="required" />
 						</p>
 
 						<p>
 							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="total_sales_2018_verified" id="total_sales_2018_verified"
 								path="total_sales_2018_verified"
-								placeholder="Total Sales in 2018 Verified" required />
+								placeholder="Total Sales in 2018 Verified" required="required" />
 						</p>
 
 						<p>
