@@ -68,66 +68,74 @@
 				</div>
 				<div class="modal-body">
 					<span id="password_strength"></span>
-					<c:url var="actionUrl" value="<%="/mail_verified"%>" />
+					<c:url var="actionUrl" value="/mail_verified" />
+
 					<form:form modelAttribute="mailVerification" action="${actionUrl}"
 						method="post" class="loginmodal-container">
 
-						<form:input path="email" type="hidden" name="email" id="email"
-							value="" />
 						<p>
-							<input style="width: 60%; padding: 2px;" type="hidden"
-								name="user_id" id="user_id" value='<%=user_id%>' required>
-							<input style="width: 60%; padding: 2px;" type="text"
-								name="verified_by" id="verified_by" placeholder="Verified by"
-								required>
+							<form:input style="width: 60%; padding: 2px;" type="hidden"
+								path="user_id" name="user_id" id="user_id" value='<%=user_id%>'
+								required />
+
+							<form:input style="width: 60%; padding: 2px;" type="text"
+								path="verified_by" name="verified_by" id="verified_by"
+								placeholder="Verified by" required />
 						</p>
 
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
+							<form:input style="width: 60%; padding: 2px;" type="text"
+								path="quota_attainment_verified"
 								name="quota_attainment_verified" id="quota_attainment_verified"
-								placeholder="Quota Attainment Verified" required>
+								placeholder="Quota Attainment Verified" required />
 						</p>
 
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
-								name="tracked" id="tracked" placeholder="Tracked" required>
+							<form:input style="width: 60%; padding: 2px;" type="text"
+								path="tracked" name="tracked" id="tracked" placeholder="Tracked"
+								required />
 						</p>
 
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
+							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="average_deal_size_verified"
 								id="average_deal_size_verified"
-								placeholder="Average Deal Size Verified" required>
+								path="average_deal_size_verified"
+								placeholder="Average Deal Size Verified" required />
 						</p>
 
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
+							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="average_sales_cycle_verified"
 								id="average_sales_cycle_verified"
-								placeholder="Average Sales Cycle Verified" required>
+								path="average_sales_cycle_verified"
+								placeholder="Average Sales Cycle Verified" required />
 						</p>
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
+							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="year_of_experiance_verified"
 								id="year_of_experiance_verified"
-								placeholder="Year of Experiance Verified" required>
+								path="year_of_experiance_verified"
+								placeholder="Year of Experiance Verified" required />
 						</p>
 
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
+							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="target_market_verified" id="target_market_verified"
-								placeholder="Target Market Verified" required>
+								path="target_market_verified"
+								placeholder="Target Market Verified" required />
 						</p>
 
 						<p>
-							<input style="width: 60%; padding: 2px;" type="text"
+							<form:input style="width: 60%; padding: 2px;" type="text"
 								name="total_sales_2018_verified" id="total_sales_2018_verified"
-								placeholder="Total Sales in 2018 Verified" required>
+								path="total_sales_2018_verified"
+								placeholder="Total Sales in 2018 Verified" required />
 						</p>
 
 						<p>
 							<button style="width: 28%; background: green;" type="submit"
-								id="mySubmit" class="btn btn-default">Change Password</button>
+								id="mySubmit" class="btn btn-default">Verify</button>
 							<button style="width: 28%; background: red;" type="reset"
 								class="btn btn-default" data-dismiss="modal"
 								onclick="javascript:window.close()">Cancel</button>
