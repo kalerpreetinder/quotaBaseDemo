@@ -7,11 +7,8 @@ public class UserList {
 	@JsonProperty("user_id")
 	public String user_id;
 	
-	@JsonProperty("first_name")
-	public String first_name;
-	
-	@JsonProperty("last_name")
-	public String last_name;
+	@JsonProperty("name")
+	public String name;
 	
 	@JsonProperty("company_name")
 	public String company_name;
@@ -30,20 +27,12 @@ public class UserList {
 		this.user_id = user_id;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
-	}
-
-	public String getLast_name() {
-		return last_name;
-	}
-
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getCompany_name() {
