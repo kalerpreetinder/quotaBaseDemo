@@ -55,32 +55,32 @@
                         <input type="hidden"  name="email" id="email" value="">
                         
                         <p>                    
-                            <input style="width: 60%;"  type="text" name="verified_by" id="verified_by" placeholder="Verified by" required>
+                            <input style="width: 60%; padding: 2px;"  type="text" name="verified_by" id="verified_by" placeholder="Verified by" required>
                         </p> 
                         
                         <p>
-                            <input style="width: 60%;"  type="text" name="quota_attainment_verified" id="quota_attainment_verified" placeholder="Quota Attainment Verified" required>
+                            <input style="width: 60%; padding: 2px;"  type="text" name="quota_attainment_verified" id="quota_attainment_verified" placeholder="Quota Attainment Verified" required>
                         </p> 
                         
                         <p>                    
-                            <input style="width: 60%;" type="text"  name="tracked" id="tracked" placeholder="Tracked" required>
+                            <input style="width: 60%; padding: 2px;" type="text"  name="tracked" id="tracked" placeholder="Tracked" required>
                         </p> 
                         <p>
-                            <input style="width: 60%;" type="text" name="average_deal_size_verified" id="average_deal_size_verified" placeholder="Average Deal Size Verified" required>
+                            <input style="width: 60%; padding: 2px;" type="text" name="average_deal_size_verified" id="average_deal_size_verified" placeholder="Average Deal Size Verified" required>
                         </p> 
                         
                         <p>                    
-                            <input style="width: 60%;" type="text"  name="average_sales_cycle_verified" id="average_sales_cycle_verified" placeholder="Average Sales Cycle Verified" required>
+                            <input style="width: 60%; padding: 2px;" type="text"  name="average_sales_cycle_verified" id="average_sales_cycle_verified" placeholder="Average Sales Cycle Verified" required>
                         </p> 
                         <p>
-                            <input style="width: 60%;" type="text" name="year_of_experiance_verified" id="year_of_experiance_verified" placeholder="Year of Experiance Verified" required>
+                            <input style="width: 60%; padding: 2px;" type="text" name="year_of_experiance_verified" id="year_of_experiance_verified" placeholder="Year of Experiance Verified" required>
                         </p> 
                         
                         <p>                    
-                            <input style="width: 60%;" type="text"  name="target_market_verified" id="target_market_verified" placeholder="Target Market Verified" required>
+                            <input style="width: 60%; padding: 2px;" type="text"  name="target_market_verified" id="target_market_verified" placeholder="Target Market Verified" required>
                         </p> 
                         <p>                    
-                            <input style="width: 60%;" type="text"  name="total_sales_2018_verified" id="total_sales_2018_verified" placeholder="Total Sales in 2018 Verified" required>
+                            <input style="width: 60%; padding: 2px;" type="text"  name="total_sales_2018_verified" id="total_sales_2018_verified" placeholder="Total Sales in 2018 Verified" required>
                         </p> 
                        
                         <p>
