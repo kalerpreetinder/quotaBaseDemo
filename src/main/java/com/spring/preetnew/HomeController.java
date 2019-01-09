@@ -30,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ import models.BaseResponse;
 import models.CheckVerification;
 import models.CheckVerifiedResponse;
 import models.Login;
-import models.MailVerified;
+import models.MailVerification;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -77,10 +78,11 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/mail_request_verified", method = RequestMethod.GET)
-	public String mail_request_verified(Locale locale, Model model) {
+	public ModelAndView mail_request_verified(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-
-		return "mail_request_verified";
+		ModelAndView modelAndView = new ModelAndView("mail_request_verified");
+		modelAndView.addObject("mailVerification", new MailVerification());
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/mail_verified_response", method = RequestMethod.GET)
@@ -317,18 +319,9 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/mail_verified", method = RequestMethod.POST)
-	public void mailVerified(@RequestParam("user_id") String user_id, @RequestParam("verified_by") String verified_by,
-			@RequestParam("quota_attainment_verified") String quota_attainment_verified,
-			@RequestParam("tracked") String tracked,
-			@RequestParam("average_deal_size_verified") String average_deal_size_verified,
-			@RequestParam("average_sales_cycle_verified") String average_sales_cycle_verified,
-			@RequestParam("year_of_experiance_verified") String year_of_experiance_verified,
-			@RequestParam("target_market_verified") String target_market_verified,
-			@RequestParam("total_sales_2018_verified") String total_sales_2018_verified) {
+	public void mailVerified(@ModelAttribute("mailVerification") MailVerification mailVerification) {
 
-		int res = dbServiceImpl.mailReqVerify(user_id, verified_by, quota_attainment_verified, tracked,
-				average_deal_size_verified, average_sales_cycle_verified, year_of_experiance_verified,
-				target_market_verified, total_sales_2018_verified);
+		int res = dbServiceImpl.mailReqVerify(mailVerification);
 
 		if (res > 0) {
 			mail_verified_response("true");

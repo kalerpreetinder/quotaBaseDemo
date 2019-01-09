@@ -14,7 +14,7 @@ import mappers.InfoMapper;
 import mappers.UserListMapper;
 import mappers.UserMapper;
 import models.CheckVerification;
-import models.MailVerified;
+import models.MailVerification;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -127,16 +127,17 @@ public class DbServiceImpl implements DbServices {
 		}
 	}
 
-	public int mailReqVerify(String user_id, String verified_by, String quota_attainment_verified, String tracked,
-			String average_deal_size_verified, String average_sales_cycle_verified, String year_of_experiance_verified,
-			String target_market_verified, String total_sales_2018_verified) {
+	public int mailReqVerify(MailVerification mailVerification) {
 
-		String sql = "UPDATE update_verification set verified_by='" + verified_by + "',last_verified='',"
-				+ "quota_attainment_verified='" + quota_attainment_verified + "',tracked='" + tracked
-				+ "', average_deal_size_verified='" + average_deal_size_verified + "',"
-				+ "average_sales_cycle_verified='" + average_sales_cycle_verified + "',year_of_experiance_verified='"
-				+ year_of_experiance_verified + "'," + "target_market_verified='" + target_market_verified
-				+ "',total_sales_2018_verified='" + user_id + "' where user_id='" + total_sales_2018_verified + "' ";
+		String sql = "UPDATE update_verification set verified_by='" + mailVerification.getVerified_by()
+				+ "',last_verified='9 jan, 2019'," + "quota_attainment_verified='"
+				+ mailVerification.getQuota_attainment_verified() + "',tracked='" + mailVerification.getTracked()
+				+ "', average_deal_size_verified='" + mailVerification.getAverage_deal_size_verified() + "',"
+				+ "average_sales_cycle_verified='" + mailVerification.getAverage_sales_cycle_verified()
+				+ "',year_of_experiance_verified='" + mailVerification.getYear_of_experiance_verified() + "',"
+				+ "target_market_verified='" + mailVerification.getTarget_market_verified()
+				+ "',total_sales_2018_verified='" + mailVerification.getTotal_sales_2018_verified()
+				+ "' where user_id='" + mailVerification.getUser_id() + "' ";
 
 		int res = jdbcTemplate.update(sql);
 

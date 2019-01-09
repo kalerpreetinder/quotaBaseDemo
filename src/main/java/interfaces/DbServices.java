@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import models.CheckVerification;
-import models.MailVerified;
+import models.MailVerification;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -29,8 +29,6 @@ public interface DbServices {
 
 	public CheckVerification checkVerification(String user_id);
 
-	public int mailReqVerify(String user_id, String verified_by, String quota_attainment_verified, String tracked,
-			String average_deal_size_verified, String average_sales_cycle_verified, String year_of_experiance_verified,
-			String target_market_verified, String total_sales_2018_verified);
+	public int mailReqVerify(MailVerification mailVerification);
 
 }

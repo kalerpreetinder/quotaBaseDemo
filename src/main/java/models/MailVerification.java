@@ -2,10 +2,10 @@ package models;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class MailVerified {
-
+public class MailVerification {
+	
 	@JsonProperty("user_id")
-	public String user_id;
+	String user_id;
 	
 	@JsonProperty("verified_by")
 	public String verified_by;
@@ -24,16 +24,13 @@ public class MailVerified {
 	
 	@JsonProperty("year_of_experiance_verified")
 	public String year_of_experiance_verified;
-	
+
 	@JsonProperty("target_market_verified")
 	public String target_market_verified;
 	
 	@JsonProperty("total_sales_2018_verified")
 	public String total_sales_2018_verified;
 
-	
-	
-	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -107,5 +104,7 @@ public class MailVerified {
 	}
 	
 	
+
 	
+
 }
