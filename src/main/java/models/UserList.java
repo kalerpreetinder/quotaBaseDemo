@@ -18,6 +18,8 @@ public class UserList {
 	
 	@JsonProperty("verified")
 	public String verified;
+	
+	
 
 	public String getUser_id() {
 		return user_id;

@@ -174,6 +174,9 @@ public class HomeController {
 			if (headerValid) {
 				int res = dbServiceImpl.updateVerification(upadateVerification, id);
 				if (res > 0) {
+					
+					baseResponse.setToken(authorization);
+					baseResponse.setUser_id(id);
 					baseResponse.setSuccess("true");
 					baseResponse.setMessage("update sucessfully");
 					responseEntity = new ResponseEntity<BaseResponse>(baseResponse, HttpStatus.OK);// 200
