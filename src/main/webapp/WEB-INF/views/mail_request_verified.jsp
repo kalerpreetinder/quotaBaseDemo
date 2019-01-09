@@ -42,7 +42,7 @@
     <body >
  
         <center> 
-        <div class="modal-dialog" style="width: 40%; margin-top:20px;">
+        <div class="modal-dialog" style="width: 550px; margin-top:20px;">
 
             <div class="modal-content" style="background-image: url('resources/images/grey_gradient_bg.png')">
                 <div class="modal-header">
