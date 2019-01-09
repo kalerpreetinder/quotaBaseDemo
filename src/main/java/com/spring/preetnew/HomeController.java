@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,6 +42,7 @@ import models.BaseResponse;
 import models.CheckVerification;
 import models.CheckVerifiedResponse;
 import models.Login;
+import models.MailVerified;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -60,7 +62,7 @@ public class HomeController {
 
 	@Autowired
 	DbServiceImpl dbServiceImpl;
-	
+
 	@Autowired
 	JavaMailSender mailSender;
 
@@ -73,12 +75,19 @@ public class HomeController {
 
 		return "home";
 	}
-	
+
 	@RequestMapping(value = "/mail_request_verified", method = RequestMethod.GET)
 	public String mail_request_verified(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		return "mail_request_verified";
+	}
+	
+	@RequestMapping(value = "/mail_verified_response", method = RequestMethod.GET)
+	public String mail_verified_response(@RequestParam("verify") String verify) {
+		
+
+		return "mail_verified_response";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -181,7 +190,7 @@ public class HomeController {
 			if (headerValid) {
 				int res = dbServiceImpl.updateVerification(upadateVerification, id);
 				if (res > 0) {
-					
+
 					baseResponse.setToken(authorization);
 					baseResponse.setUser_id(id);
 					baseResponse.setSuccess("true");
@@ -219,9 +228,9 @@ public class HomeController {
 
 			boolean headerValid = dbServiceImpl.isHeaderValid(authorization, id);
 			if (headerValid) {
-				//sendMail();
+				// sendMail();
 				generateForgotPassword("kalerpreetinder@gmail.com", mailSender);
-				
+
 				baseResponse.setVerified("true");
 				baseResponse.setSuccess("true");
 				baseResponse.setMessage("verified sucessfully");
@@ -308,111 +317,111 @@ public class HomeController {
 
 	}
 
-	public void sendMail() {
-		/*try {
-			final String to = "kalerpreetinder@gmail.com";
-			final String from = "preetsumit368@gmail.com";
-			String host = "smtp.gmail.com";
-			Properties properties = System.getProperties();
-			// Setup mail server
-			properties.setProperty("mail.smtp.host", host);
-			properties.setProperty("mail.smtp.starttls.enable", "true");
-			properties.setProperty("mail.smtp.starttls.required", "true");
-			properties.setProperty("mail.smtp.auth", "true");
+	@RequestMapping(value = "/mail_verified", method = RequestMethod.POST)
+	public void mailVerified(@RequestBody MailVerified mailVerified) {
 
-			// properties.put("mail.smtp.EnableSSL.enable", "true");
-			properties.setProperty("mail.smtp.ssl.enable", "false");
-			properties.setProperty("mail.smtp.debug", "true");
+		if (mailVerified != null) {
+			int res = dbServiceImpl.mailReqVerify(mailVerified);
 
-			// properties.setProperty("mail.smtp.socketFactory.class",
-			// "javax.net.ssl.SSLSocketFactory");
-			properties.setProperty("mail.smtp.socketFactory.fallback", "true");
-			properties.setProperty("mail.port", "587");
-			properties.setProperty("mail.smtp.socketFactory.port", "587");
-			properties.put("mail.from", from);
+			if (res > 0) {
+				mail_verified_response("true");
+			} else {
+				mail_verified_response("false");
+			}
+		}
 
-			// Get the default Session object.
-			Session mailSession = Session.getInstance(properties, new Authenticator() {
-				public javax.mail.PasswordAuthentication getPasswordAuthentication() {
-					String username = from;
-					String password = "preet368@";
-					if ((username != null) && (username.length() > 0) && (password != null)
-							&& (password.length() > 0)) {
-
-						return new javax.mail.PasswordAuthentication(username, password);
-					}
-					return null;
-				}
-			});
-
-			// Create a default MimeMessage object.
-			MimeMessage message = new MimeMessage(mailSession);
-			// Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
-			// Set To: header field of the header.
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			// Set Subject: header field
-			message.setSubject("WordBoost email verification");
-			message.setContent(message, "text/html; charset=utf-8");
-			// String link =
-			// "http://112.196.64.115:8080/app_wordsprint/change_password_link.jsp?email=" +
-			// to;
-			StringBuilder bodyText = new StringBuilder();
-			bodyText.append("<div>").append("  Dear User<br/><br/>")
-					.append("  Your password change request is under process.<br/>")
-					.append("  Please click <a href=\""
-							+ "\">here</a> or open below link in browser to change password<br/>")
-					.append("  <a href=''>Click here to verify</a>").append("  <br/><br/>").append("  Thanks,<br/>")
-					.append("  WordBoost Team").append("</div>");
-
-			// message.setText(bodyText.toString());
-			message.setContent(bodyText.toString(), "text/html; charset=utf-8");
-
-			MimeBodyPart mimeBodyPart = new MimeBodyPart();
-			mimeBodyPart.setContent(bodyText, "text/html");
-
-			MimeMultipart multipart = new MimeMultipart();
-			multipart.addBodyPart(mimeBodyPart);
-
-			MimeMessage messagep = new MimeMessage(mailSession);
-			messagep.setFrom(new InternetAddress(from));
-			messagep.setContent(multipart, "text/html; charset=utf-8");
-			messagep.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			messagep.setSubject("WordBoost email verification");
-			messagep.setContent(bodyText.toString(), "text/html; charset=utf-8");
-
-			Transport.send(messagep);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}*/
-		
-		
-		Email from = new Email("preetsumit368@gmail.com");
-        String subject = "Amazing Email";
-        Email to = new Email("kalerpreetinder@gmail.com");
-        Content content = new Content("text/plain", "You have received this email complements of SendGrid and Heroku!");
-        Mail mail = new Mail(from, subject, to, content);
- 
-        SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
-        Request request = new Request();
-        try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            Response response = sg.api(request);
-            
-            System.out.println("Status code sending email:" + response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
-            
-        } catch (IOException ex) {
-            System.out.println("Email was not sent." + ex.getLocalizedMessage());
-        }
-		
 	}
 
-	
+	public void sendMail() {
+		/*
+		 * try { final String to = "kalerpreetinder@gmail.com"; final String from =
+		 * "preetsumit368@gmail.com"; String host = "smtp.gmail.com"; Properties
+		 * properties = System.getProperties(); // Setup mail server
+		 * properties.setProperty("mail.smtp.host", host);
+		 * properties.setProperty("mail.smtp.starttls.enable", "true");
+		 * properties.setProperty("mail.smtp.starttls.required", "true");
+		 * properties.setProperty("mail.smtp.auth", "true");
+		 * 
+		 * // properties.put("mail.smtp.EnableSSL.enable", "true");
+		 * properties.setProperty("mail.smtp.ssl.enable", "false");
+		 * properties.setProperty("mail.smtp.debug", "true");
+		 * 
+		 * // properties.setProperty("mail.smtp.socketFactory.class", //
+		 * "javax.net.ssl.SSLSocketFactory");
+		 * properties.setProperty("mail.smtp.socketFactory.fallback", "true");
+		 * properties.setProperty("mail.port", "587");
+		 * properties.setProperty("mail.smtp.socketFactory.port", "587");
+		 * properties.put("mail.from", from);
+		 * 
+		 * // Get the default Session object. Session mailSession =
+		 * Session.getInstance(properties, new Authenticator() { public
+		 * javax.mail.PasswordAuthentication getPasswordAuthentication() { String
+		 * username = from; String password = "preet368@"; if ((username != null) &&
+		 * (username.length() > 0) && (password != null) && (password.length() > 0)) {
+		 * 
+		 * return new javax.mail.PasswordAuthentication(username, password); } return
+		 * null; } });
+		 * 
+		 * // Create a default MimeMessage object. MimeMessage message = new
+		 * MimeMessage(mailSession); // Set From: header field of the header.
+		 * message.setFrom(new InternetAddress(from)); // Set To: header field of the
+		 * header. message.addRecipient(Message.RecipientType.TO, new
+		 * InternetAddress(to)); // Set Subject: header field
+		 * message.setSubject("WordBoost email verification");
+		 * message.setContent(message, "text/html; charset=utf-8"); // String link = //
+		 * "http://112.196.64.115:8080/app_wordsprint/change_password_link.jsp?email=" +
+		 * // to; StringBuilder bodyText = new StringBuilder();
+		 * bodyText.append("<div>").append("  Dear User<br/><br/>")
+		 * .append("  Your password change request is under process.<br/>")
+		 * .append("  Please click <a href=\"" +
+		 * "\">here</a> or open below link in browser to change password<br/>")
+		 * .append("  <a href=''>Click here to verify</a>").append("  <br/><br/>").
+		 * append("  Thanks,<br/>") .append("  WordBoost Team").append("</div>");
+		 * 
+		 * // message.setText(bodyText.toString());
+		 * message.setContent(bodyText.toString(), "text/html; charset=utf-8");
+		 * 
+		 * MimeBodyPart mimeBodyPart = new MimeBodyPart();
+		 * mimeBodyPart.setContent(bodyText, "text/html");
+		 * 
+		 * MimeMultipart multipart = new MimeMultipart();
+		 * multipart.addBodyPart(mimeBodyPart);
+		 * 
+		 * MimeMessage messagep = new MimeMessage(mailSession); messagep.setFrom(new
+		 * InternetAddress(from)); messagep.setContent(multipart,
+		 * "text/html; charset=utf-8"); messagep.setRecipients(Message.RecipientType.TO,
+		 * InternetAddress.parse(to));
+		 * messagep.setSubject("WordBoost email verification");
+		 * messagep.setContent(bodyText.toString(), "text/html; charset=utf-8");
+		 * 
+		 * Transport.send(messagep); } catch (Exception e) { // TODO: handle exception
+		 * e.printStackTrace(); }
+		 */
+
+		Email from = new Email("preetsumit368@gmail.com");
+		String subject = "Amazing Email";
+		Email to = new Email("kalerpreetinder@gmail.com");
+		Content content = new Content("text/plain", "You have received this email complements of SendGrid and Heroku!");
+		Mail mail = new Mail(from, subject, to, content);
+
+		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+		Request request = new Request();
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+
+			System.out.println("Status code sending email:" + response.getStatusCode());
+			System.out.println(response.getBody());
+			System.out.println(response.getHeaders());
+
+		} catch (IOException ex) {
+			System.out.println("Email was not sent." + ex.getLocalizedMessage());
+		}
+
+	}
+
 	public void generateForgotPassword(String to, JavaMailSender mailSender) {
 		int max = 99999999, min = 100000;
 		Random random = new Random();
@@ -421,7 +430,7 @@ public class HomeController {
 		final String from = "webastral99@gmail.com";
 		String host = "smtp.gmail.com";
 		Properties properties = System.getProperties();
-		
+
 		try {
 			// Setup mail server
 			/*
@@ -474,13 +483,13 @@ public class HomeController {
 			// Send message
 			mailSender.send(message);
 
-		    //Transport.send(message);
-			
+			// Transport.send(message);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			
+
 		}
 	}
-	
+
 }

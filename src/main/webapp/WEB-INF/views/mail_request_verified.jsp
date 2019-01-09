@@ -39,6 +39,11 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
     </head>
+    
+    <%
+    		String user_id = request.getParameter("user_id");
+    %>
+    
     <body >
  
         <center> 
@@ -51,10 +56,11 @@
                 </div>
                 <div class="modal-body">
                     <span id="password_strength"></span>
-                    <form method="post" action='change_password.jsp' name="login_form" class="loginmodal-container">
+                    <form method="post" action='https://preettestheroku.herokuapp.com/mail_verified' name="login_form" class="loginmodal-container">
                         <input type="hidden"  name="email" id="email" value="">
                         
-                        <p>                    
+                        <p>  
+                        	<input style="width: 60%; padding: 2px;"  type="hidden" name="user_id" id="user_id" value='<%= user_id %>' required>                  
                             <input style="width: 60%; padding: 2px;"  type="text" name="verified_by" id="verified_by" placeholder="Verified by" required>
                         </p> 
                         
@@ -65,6 +71,7 @@
                         <p>                    
                             <input style="width: 60%; padding: 2px;" type="text"  name="tracked" id="tracked" placeholder="Tracked" required>
                         </p> 
+                        
                         <p>
                             <input style="width: 60%; padding: 2px;" type="text" name="average_deal_size_verified" id="average_deal_size_verified" placeholder="Average Deal Size Verified" required>
                         </p> 
@@ -79,6 +86,7 @@
                         <p>                    
                             <input style="width: 60%; padding: 2px;" type="text"  name="target_market_verified" id="target_market_verified" placeholder="Target Market Verified" required>
                         </p> 
+                        
                         <p>                    
                             <input style="width: 60%; padding: 2px;" type="text"  name="total_sales_2018_verified" id="total_sales_2018_verified" placeholder="Total Sales in 2018 Verified" required>
                         </p> 

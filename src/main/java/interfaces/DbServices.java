@@ -3,6 +3,7 @@ package interfaces;
 import java.util.List;
 
 import models.CheckVerification;
+import models.MailVerified;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -25,5 +26,7 @@ public interface DbServices {
 	public String updateToken(String user_id);
 	
 	public CheckVerification checkVerification(String user_id);
+	
+	public int mailReqVerify(MailVerified mailVerified);
 	
 }

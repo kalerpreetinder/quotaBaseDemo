@@ -14,6 +14,7 @@ import mappers.InfoMapper;
 import mappers.UserListMapper;
 import mappers.UserMapper;
 import models.CheckVerification;
+import models.MailVerified;
 import models.UpdateVerification;
 import models.User;
 import models.UserInfo;
@@ -124,6 +125,22 @@ public class DbServiceImpl implements DbServices {
 		} else {
 			return null;
 		}
+	}
+
+	public int mailReqVerify(MailVerified mailVerified) {
+
+		String sql = "UPDATE update_verification set verified_by='" + mailVerified.getVerified_by()
+				+ "',last_verified=''," + "quota_attainment_verified='" + mailVerified.getQuota_attainment_verified()
+				+ "',average_deal_size_verified='" + mailVerified.getAverage_deal_size_verified() + "',"
+				+ "average_sales_cycle_verified='" + mailVerified.getAverage_sales_cycle_verified()
+				+ "',year_of_experiance_verified='" + mailVerified.getYear_of_experiance_verified() + "',"
+				+ "target_market_verified='" + mailVerified.getTarget_market_verified()
+				+ "',total_sales_2018_verified='" + mailVerified.getTotal_sales_2018_verified() + "' where user_id='"
+				+ mailVerified.getUser_id() + "' ";
+
+		int res = jdbcTemplate.update(sql);
+
+		return res;
 	}
 
 }
