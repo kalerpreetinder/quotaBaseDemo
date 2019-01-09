@@ -42,50 +42,52 @@
     <body >
  
         <center> 
-        <div class="modal-dialog" style="width: 320px; margin-top:100px;">
+        <div class="modal-dialog" style="width: 40%; margin-top:20px;">
 
             <div class="modal-content" style="background-image: url('resources/images/grey_gradient_bg.png')">
                 <div class="modal-header">
 
-                    <center><img class="modal-title" src="resources/images/quotabase.png" style="margin-top: 30px; width: 70%; height: 100px; "/></center>
+                    <center><img class="modal-title" src="resources/images/quotabase.png" style="margin-top: 0px; width: 70%; height: 100px; "/></center>
                 </div>
                 <div class="modal-body">
                     <span id="password_strength"></span>
                     <form method="post" action='change_password.jsp' name="login_form" class="loginmodal-container">
                         <input type="hidden"  name="email" id="email" value="">
-                        <center> 
+                        
                         <p>                    
-                            <input type="text" name="verified_by" id="verified_by" placeholder="Verified by" required>
+                            <input style="width: 60%;"  type="text" name="verified_by" id="verified_by" placeholder="Verified by" required>
                         </p> 
+                        
                         <p>
-                            <input type="text" name="quota_attainment_verified" id="quota_attainment_verified" placeholder="Quota Attainment Verified" required>
+                            <input style="width: 60%;"  type="text" name="quota_attainment_verified" id="quota_attainment_verified" placeholder="Quota Attainment Verified" required>
                         </p> 
                         
                         <p>                    
-                            <input type="text"  name="tracked" id="tracked" placeholder="Tracked" required>
+                            <input style="width: 60%;" type="text"  name="tracked" id="tracked" placeholder="Tracked" required>
                         </p> 
                         <p>
-                            <input type="text" name="average_deal_size_verified" id="average_deal_size_verified" placeholder="Average Deal Size Verified" required>
+                            <input style="width: 60%;" type="text" name="average_deal_size_verified" id="average_deal_size_verified" placeholder="Average Deal Size Verified" required>
                         </p> 
                         
                         <p>                    
-                            <input type="text"  name="average_sales_cycle_verified" id="average_sales_cycle_verified" placeholder="Average Sales Cycle Verified" required>
+                            <input style="width: 60%;" type="text"  name="average_sales_cycle_verified" id="average_sales_cycle_verified" placeholder="Average Sales Cycle Verified" required>
                         </p> 
                         <p>
-                            <input type="text" name="year_of_experiance_verified" id="year_of_experiance_verified" placeholder="Year of Experiance Verified" required>
+                            <input style="width: 60%;" type="text" name="year_of_experiance_verified" id="year_of_experiance_verified" placeholder="Year of Experiance Verified" required>
                         </p> 
                         
                         <p>                    
-                            <input type="text"  name="target_market_verified" id="target_market_verified" placeholder="Target Market Verified" required>
+                            <input style="width: 60%;" type="text"  name="target_market_verified" id="target_market_verified" placeholder="Target Market Verified" required>
                         </p> 
                         <p>                    
-                            <input type="text"  name="total_sales_2018_verified" id="total_sales_2018_verified" placeholder="Total Sales in 2018 Verified" required>
+                            <input style="width: 60%;" type="text"  name="total_sales_2018_verified" id="total_sales_2018_verified" placeholder="Total Sales in 2018 Verified" required>
                         </p> 
                        
-                        <p><button type="submit" id="mySubmit" class="btn btn-default">Change Password</button>
-                            <button type="reset" class="btn btn-default" data-dismiss="modal" onclick="javascript:window.close()">Cancel</button>
+                        <p>
+                        	<button style="width: 28%; background: green;" type="submit" id="mySubmit" class="btn btn-default">Change Password</button>
+                            <button style="width: 28%; background: red;" type="reset" class="btn btn-default" data-dismiss="modal" onclick="javascript:window.close()">Cancel</button>
                         </p>
-                        </center>
+                       
                     </form>
                 </div>
                
