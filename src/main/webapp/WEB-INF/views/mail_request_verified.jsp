@@ -15,6 +15,7 @@
 
 <html>
     <head>
+    <title> Verification </title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,44 +37,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
- 
-    $(function () {
-        $("#password").bind("keyup", function () {
-            //TextBox left blank.
-            var value ='<?php echo $valu ?>';
-            if ($(this).val().length == 0) {
-                $("#password_strength").html("");
-                return;
-            }
- 
-            var passed=0;
-            //Validate for length of Password.
-            if ($(this).val().length >= 6) {
-                passed++;
-            }
-            else if($(this).val().length < 6){
-                passed=0;
-            }
- 
-            var color = "";
-            var strength = "";
-            if(passed==0){
-                    strength = "Minimum length to be 8";
-                    color = "white";
-                    document.getElementById("mySubmit").disabled = true;
-                    document.getElementById("password_strength").innerHTML=strength;
-                }
-                else{
-                 strength=""
-                    document.getElementById("mySubmit").disabled = false;
-                }
-            $("#password_strength").html(strength);
-            $("#password_strength").css("color", color);
-   
-        });
-      });
-      </script>
+        
     </head>
     <body >
  

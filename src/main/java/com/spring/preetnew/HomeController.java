@@ -73,6 +73,13 @@ public class HomeController {
 
 		return "home";
 	}
+	
+	@RequestMapping(value = "/mail_request_verified", method = RequestMethod.GET)
+	public String mail_request_verified(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		return "mail_request_verified";
+	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<BaseResponse> registerUser(@RequestBody User user) {
