@@ -82,10 +82,9 @@ public class HomeController {
 
 		return "mail_request_verified";
 	}
-	
+
 	@RequestMapping(value = "/mail_verified_response", method = RequestMethod.GET)
 	public String mail_verified_response(@RequestParam("verify") String verify) {
-		
 
 		return "mail_verified_response";
 	}
@@ -318,16 +317,23 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/mail_verified", method = RequestMethod.POST)
-	public void mailVerified(@RequestBody MailVerified mailVerified) {
+	public void mailVerified(@RequestParam("user_id") String user_id, @RequestParam("verified_by") String verified_by,
+			@RequestParam("quota_attainment_verified") String quota_attainment_verified,
+			@RequestParam("tracked") String tracked,
+			@RequestParam("average_deal_size_verified") String average_deal_size_verified,
+			@RequestParam("average_sales_cycle_verified") String average_sales_cycle_verified,
+			@RequestParam("year_of_experiance_verified") String year_of_experiance_verified,
+			@RequestParam("target_market_verified") String target_market_verified,
+			@RequestParam("total_sales_2018_verified") String total_sales_2018_verified) {
 
-		if (mailVerified != null) {
-			int res = dbServiceImpl.mailReqVerify(mailVerified);
+		int res = dbServiceImpl.mailReqVerify(user_id, verified_by, quota_attainment_verified, tracked,
+				average_deal_size_verified, average_sales_cycle_verified, year_of_experiance_verified,
+				target_market_verified, total_sales_2018_verified);
 
-			if (res > 0) {
-				mail_verified_response("true");
-			} else {
-				mail_verified_response("false");
-			}
+		if (res > 0) {
+			mail_verified_response("true");
+		} else {
+			mail_verified_response("false");
 		}
 
 	}

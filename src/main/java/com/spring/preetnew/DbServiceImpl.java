@@ -127,16 +127,16 @@ public class DbServiceImpl implements DbServices {
 		}
 	}
 
-	public int mailReqVerify(MailVerified mailVerified) {
+	public int mailReqVerify(String user_id, String verified_by, String quota_attainment_verified, String tracked,
+			String average_deal_size_verified, String average_sales_cycle_verified, String year_of_experiance_verified,
+			String target_market_verified, String total_sales_2018_verified) {
 
-		String sql = "UPDATE update_verification set verified_by='" + mailVerified.getVerified_by()
-				+ "',last_verified=''," + "quota_attainment_verified='" + mailVerified.getQuota_attainment_verified()
-				+ "',average_deal_size_verified='" + mailVerified.getAverage_deal_size_verified() + "',"
-				+ "average_sales_cycle_verified='" + mailVerified.getAverage_sales_cycle_verified()
-				+ "',year_of_experiance_verified='" + mailVerified.getYear_of_experiance_verified() + "',"
-				+ "target_market_verified='" + mailVerified.getTarget_market_verified()
-				+ "',total_sales_2018_verified='" + mailVerified.getTotal_sales_2018_verified() + "' where user_id='"
-				+ mailVerified.getUser_id() + "' ";
+		String sql = "UPDATE update_verification set verified_by='" + verified_by + "',last_verified='',"
+				+ "quota_attainment_verified='" + quota_attainment_verified + "',tracked='" + tracked
+				+ "', average_deal_size_verified='" + average_deal_size_verified + "',"
+				+ "average_sales_cycle_verified='" + average_sales_cycle_verified + "',year_of_experiance_verified='"
+				+ year_of_experiance_verified + "'," + "target_market_verified='" + target_market_verified
+				+ "',total_sales_2018_verified='" + user_id + "' where user_id='" + total_sales_2018_verified + "' ";
 
 		int res = jdbcTemplate.update(sql);
 
