@@ -44,10 +44,10 @@
         <center> 
         <div class="modal-dialog" style="width: 320px; margin-top:100px;">
 
-            <div class="modal-content" style="background-image: url('images/bg.png')">
+            <div class="modal-content" style="background-image: url('resources/images/grey_gradient_bg.png')">
                 <div class="modal-header">
 
-                    <center><img class="modal-title" src="images/logos.png" style="margin-top: 30px; width: 70%; height: 100px; "/></center>
+                    <center><img class="modal-title" src="resources/images/quotabase.png" style="margin-top: 30px; width: 70%; height: 100px; "/></center>
                 </div>
                 <div class="modal-body">
                     <span id="password_strength"></span>
@@ -55,7 +55,7 @@
                         <input type="hidden"  name="email" id="email" value="">
                         <center> 
                         <p>                    
-                            <input type="text"  name="verified_by" id="verified_by" placeholder="Verified by" required>
+                            <input type="text" name="verified_by" id="verified_by" placeholder="Verified by" required>
                         </p> 
                         <p>
                             <input type="text" name="quota_attainment_verified" id="quota_attainment_verified" placeholder="Quota Attainment Verified" required>
