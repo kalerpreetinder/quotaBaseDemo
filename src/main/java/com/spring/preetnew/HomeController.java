@@ -80,6 +80,7 @@ public class HomeController {
 	@RequestMapping(value = "/mail_request_verified", method = RequestMethod.GET)
 	public ModelAndView mail_request_verified(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		
 		ModelAndView modelAndView = new ModelAndView("mail_request_verified");
 		modelAndView.addObject("mailVerification", new MailVerification());
 		return modelAndView;
@@ -319,15 +320,22 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/mail_verified", method = RequestMethod.POST)
-	public void mailVerified(@ModelAttribute("mailVerification") MailVerification mailVerification) {
+	public ModelAndView mailVerified(@ModelAttribute("mailVerification") MailVerification mailVerification) {
 
 		int res = dbServiceImpl.mailReqVerify(mailVerification);
-
+		ModelAndView modelAndView = new ModelAndView("mail_verified_response");
+		
 		if (res > 0) {
-			mail_verified_response("true");
+			modelAndView.addObject("verify", "true");
+			//mail_verified_response("true");
 		} else {
-			mail_verified_response("false");
+			modelAndView.addObject("verify", "fasle");
+			//mail_verified_response("false");
 		}
+		
+		modelAndView.addObject("mailVerification", mailVerification);
+		
+		return modelAndView;
 
 	}
 
